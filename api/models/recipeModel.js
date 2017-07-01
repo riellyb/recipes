@@ -6,18 +6,19 @@ var Schema = mongoose.Schema;
 var RecipeSchema = new Schema({
   name: {
     type: String,
-    Required: 'Kindly enter the name of the recipe'
+    Required: 'Please enter the name of the recipe'
   },
-  created_date: {
+  author: String,
+  ingredients: [String],
+  categories: [String],
+  images: [String],
+  createdDate: {
     type: Date,
     default: Date.now
   },
-  ingredients: {
-    type: String
-  },
-  directions: {
-    type: String
-  }
+  directions: [String],
+  prepTime: String,
+  cookTime: String
 });
 
 module.exports = mongoose.model('Recipe', RecipeSchema);
