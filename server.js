@@ -3,6 +3,7 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   Recipe = require('./api/models/recipeModel'),
+  
   bodyParser = require('body-parser');
 
 //Connect to DB via Mongoose
@@ -13,9 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-//routes
-var routes = require('./api/routes/recipeRoutes');
-routes(app);
+//API routes
+var api = require('./api/routes/recipeRoutes');
+app.use('/recipes', api);
+
+//main routes
+var routes = require('./routes/routes');
+app.use('/', routes);
 
 //404 handling
 app.use(function(req, res) {
