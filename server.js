@@ -13,14 +13,13 @@ mongoose.connect('mongodb://localhost:27017/recipes');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
-//API routes
+//routes
 var api = require('./api/routes/recipeRoutes');
-app.use('/recipes', api);
+api(app);
 
 //main routes
 var routes = require('./routes/routes');
-app.use('/', routes);
+routes(app);
 
 //404 handling
 app.use(function(req, res) {
@@ -29,4 +28,4 @@ app.use(function(req, res) {
 
 app.listen(port);
 
-console.log('Recipe RESTful API server started on: ' + port);
+console.log('Recipe App server started on: ' + port);
