@@ -39,17 +39,18 @@ class Main extends React.Component {
 class App extends React.Component {
 	constructor(props) {
 	    super(props);
+	    this.onChange = this.onChange.bind(this);
 	    this.state = {
 	    	numberOfRecipes: 45,
 	    	mainContent: 'This is the Main Content'
 	    };
-	}
+	};
 
 	updateMain = () => {
 		this.setState({
 			mainContent: 'Main Content has been updated!'
 		});
-	}
+	};
 	render() {
 		return (
 			<div>
@@ -58,7 +59,7 @@ class App extends React.Component {
 				<Main content={this.state.mainContent} />
 			</div>
 		);
-	}
+	};
 }
 
 ReactDOM.render(

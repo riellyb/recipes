@@ -11,12 +11,20 @@ module.exports = {
    module: {
      rules: [
         {
-          test: /\.js$/, 
-          enforce: 'pre', 
+          test: /\.jsx?$/,
           exclude: /node_modules/,
           use: [ 
-                  'babel-loader',
-                  'eslint-loader'
+            {
+              loader: 'babel-loader',
+              query: {
+                "presets": ["react", "es2015", "stage-0"],
+                "plugins": ["transform-class-properties"]
+              } 
+
+            },
+            {
+              loader: 'eslint-loader'
+            }
           ]
         },
        {
