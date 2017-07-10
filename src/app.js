@@ -30,7 +30,7 @@ class Main extends React.Component {
 	render() {
 		return (
 			<section style={{boxSizing: 'border-box', backgroundColor: '#ff0000', float: 'right', width: '70%', padding: '40px'}}>
-				<h2>{this.props.content}</h2>
+				<h2>{this.props.content}{this.props.numberOfUpdates} times</h2>
 			</section>
 		);
 	}
@@ -39,24 +39,24 @@ class Main extends React.Component {
 class App extends React.Component {
 	constructor(props) {
 	    super(props);
-	    this.onChange = this.onChange.bind(this);
 	    this.state = {
 	    	numberOfRecipes: 45,
-	    	mainContent: 'This is the Main Content'
+	    	numberOfUpdates: 0,
+	    	mainContent: 'Main Content has been updated '
 	    };
 	};
 
 	updateMain = () => {
-		this.setState({
-			mainContent: 'Main Content has been updated!'
-		});
+		this.setState(prevState => ({
+			numberOfUpdates: prevState.numberOfUpdates + 1
+        }));
 	};
 	render() {
 		return (
 			<div>
 				<Header />
 				<Sidebar updateMain={this.updateMain} numberOfRecipes={this.state.numberOfRecipes} />
-				<Main content={this.state.mainContent} />
+				<Main numberOfUpdates={this.state.numberOfUpdates} content={this.state.mainContent} />
 			</div>
 		);
 	};

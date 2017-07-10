@@ -15,15 +15,15 @@ module.exports = {
           exclude: /node_modules/,
           use: [ 
             {
+              loader: 'eslint-loader'
+            },
+            {
               loader: 'babel-loader',
               query: {
                 "presets": ["react", "es2015", "stage-0"],
                 "plugins": ["transform-class-properties"]
               } 
 
-            },
-            {
-              loader: 'eslint-loader'
             }
           ]
         },
