@@ -1,40 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from './components/header.js';
+import Sidebar from './components/sidebar.js';
+import Main from './components/main.js';
 
+require('./scss/style.scss');
 
-class Header extends React.Component {
-	render() {
-		return (
-			<nav style={{padding: '40px', boxSizing: 'border-box', height: '200px', backgroundColor: '#ccc'}}>
-				<h1>React App</h1>
-				<h3>This is the Header</h3>
-			</nav>
-		);
-	}
-}
-
-class Sidebar extends React.Component {
-	render() {
-		return (
-			<aside style={{boxSizing: 'border-box', backgroundColor: '#00ff00',float: 'left', width: '30%', padding: '40px'}}>
-				<h2>This is the sidebar</h2>
-				<button onClick={this.props.updateMain} className="btn btn-primary">Browse {this.props.numberOfRecipes} Recipes</button>
-				<button className="btn btn-primary">Search Recipes</button>
-				<button className="btn btn-primary">New Recipe</button>
-			</aside>
-		);
-	}
-}
-
-class Main extends React.Component {
-	render() {
-		return (
-			<section style={{boxSizing: 'border-box', backgroundColor: '#ff0000', float: 'right', width: '70%', padding: '40px'}}>
-				<h2>{this.props.content}{this.props.numberOfUpdates} times</h2>
-			</section>
-		);
-	}
-}
 
 class App extends React.Component {
 	constructor(props) {
@@ -42,21 +13,28 @@ class App extends React.Component {
 	    this.state = {
 	    	numberOfRecipes: 45,
 	    	numberOfUpdates: 0,
-	    	mainContent: 'Main Content has been updated '
+	    	mainContent: 'Main Content has been updated ',
+	    	newRecipe: false,
 	    };
 	};
 
 	updateMain = () => {
 		this.setState(prevState => ({
-			numberOfUpdates: prevState.numberOfUpdates + 1
+			numberOfUpdates: prevState.numberOfUpdates + 1,
+			newRecipe: false,
         }));
+	};
+	newRecipe = () => {
+		this.setState({
+			newRecipe: true,
+        });
 	};
 	render() {
 		return (
 			<div>
 				<Header />
-				<Sidebar updateMain={this.updateMain} numberOfRecipes={this.state.numberOfRecipes} />
-				<Main numberOfUpdates={this.state.numberOfUpdates} content={this.state.mainContent} />
+				<Sidebar newRecipe={this.newRecipe} updateMain={this.updateMain} numberOfRecipes={this.state.numberOfRecipes} />
+				<Main newRecipe={this.state.newRecipe} numberOfUpdates={this.state.numberOfUpdates} content={this.state.mainContent} />
 			</div>
 		);
 	};
