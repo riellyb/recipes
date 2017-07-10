@@ -1,5 +1,7 @@
 import React from 'react';
 import NewRecipe from './new-recipe.js';
+import Search from './search.js';
+import RecipeTable from './recipe-table.js';
 
 export default class Main extends React.Component {
 	render() {
@@ -9,7 +11,8 @@ export default class Main extends React.Component {
         	return(
         		<section className="main">
 					<h2>Browse Recipes</h2>
-					<h3>{this.props.content}{this.props.numberOfUpdates} times</h3>
+					<Search doSearch={this.props.doSearch} query={this.props.query}/>
+					<RecipeTable data={this.props.data} />
 				</section>
 			);
 		}

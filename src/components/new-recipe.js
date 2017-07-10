@@ -22,6 +22,7 @@ export default class NewRecipe extends React.Component {
     handleSubmit = (event) => {
         //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
+        //TODO actually handle the form and send the input values to our API
         console.log(this.state);
     };
     handleClearForm = (event) => {
@@ -38,14 +39,21 @@ export default class NewRecipe extends React.Component {
             <section className="new-recipe">
 				<h2>Create a New Recipe</h2>
 				<form onSubmit={this.handleSubmit} id="new-recipe">
-					<input value={this.state.name}
+					<div className="form-group row">
+						<input className="form-control" value={this.state.name}
           				onChange={this.handleNameChange}
           				type="text" name="name" placeholder="Name of Recipe"/>
-					<input value={this.state.ingredients}
+          			</div>
+					<div className="form-group row">
+						<input className="form-control" value={this.state.ingredients}
           				onChange={this.handleIngredientChange} type="text" name="ingredients" placeholder="Ingredients"/>
-          			<input value={this.state.directions}
+          			</div>
+          			<div className="form-group row">
+          				<input className="form-control" value={this.state.directions}
           				onChange={this.handleDirectionsChange} type="text" name="directions" placeholder="Directions"/>
-          			<button  
+          			</div>
+          			<div className="form-group row">
+          				<button  
           				type="submit"
           				form="new-recipe"
           				value="Submit"
@@ -53,6 +61,7 @@ export default class NewRecipe extends React.Component {
           				<button
 				          className="btn btn-warning float-left"
 				          onClick={this.handleClearForm}>Clear form</button>
+				    </div>
 				</form>
 			</section>
         );
