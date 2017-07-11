@@ -70,7 +70,12 @@ module.exports = {
     ],
   devServer: {
     publicPath: '/',
-    contentBase: './dist'
+    contentBase: './dist',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 
 };

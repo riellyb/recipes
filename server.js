@@ -3,13 +3,17 @@ var express = require('express'),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   Recipe = require('./api/models/recipeModel'),
-  
+  cors = require('cors'),
   bodyParser = require('body-parser');
 
 //Connect to DB via Mongoose
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/recipes'); 
 
+//cors for dev
+app.use(cors());
+
+//parser for API
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

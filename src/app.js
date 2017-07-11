@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from './components/header.js';
 import Sidebar from './components/sidebar.js';
 import Main from './components/main.js';
+import axios from 'axios';
 
 require('./scss/style.scss');
 
@@ -186,9 +187,12 @@ class App extends React.Component {
 	};
 
 	componentDidMount = () => {
-		this.setState({
-			recipes: this.state.data,
-        });
+		axios.get('http://localhost:3000/recipes')
+      		.then(res => {
+      			console.log(res);
+        		const recipes = res.data;
+        		this.setState({ recipes });
+      		});
   	}
 
 	updateMain = () => {
