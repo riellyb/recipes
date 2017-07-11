@@ -20,7 +20,7 @@ export default class Ingredients extends React.Component {
             <div className='form-group row'>
     			<select placeholder="Select a Category" className={className} defaultValue={this.state.selectValue} 
  					onChange={this.handleChange} >
- 					<option value=''>Select a Category...</option>
+ 					<option value="">Select a Category...</option>
 				    <option value="Breakfast">Breakfast</option>
 					<option value="Lunch">Lunch</option>
 					<option value="Beverages">Beverages</option>

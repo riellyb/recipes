@@ -32,7 +32,7 @@ export default class NewRecipe extends React.Component {
     handleSubmit = (event) => {
         //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
-        //TODO actually handle the form and send the input values to our API
+        
         const params = {
         	'name': this.state.name,
         	'category': this.state.category,

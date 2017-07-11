@@ -55,7 +55,6 @@ class App extends React.Component {
 	getRecipes = () => {
 		axios.get('http://localhost:3000/recipes')
       		.then(res => {
-      			console.log(res);
         		const recipes = res.data;
         		this.setState({ 
         			recipes: recipes,
@@ -66,12 +65,7 @@ class App extends React.Component {
 	createRecipe = (params) => {
 		axios.post('http://localhost:3000/recipes', params)
       		.then(res => {
-      			console.log(res);
-        		const recipes = res.data;
-        		this.setState({ 
-        			recipes: recipes,
-        			filteredData: recipes,
-        		});
+
       		});	
 	};
 	render() {
@@ -80,7 +74,6 @@ class App extends React.Component {
 				<Header />
 				<Sidebar newRecipe={this.newRecipe} 
 					updateMain={this.updateMain} />
-					{console.table('filteredData: ' + this.state.filteredData)}
 				<Main data={this.state.filteredData} 
 					query={this.state.query}
 					doSearch={this.doSearch}
