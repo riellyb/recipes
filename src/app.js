@@ -22,14 +22,15 @@ class App extends React.Component {
 	componentDidMount = () => {
 		this.getRecipes();
   	}
-
+  	//update recipe list
 	updateMain = () => {
-		this.setState(prevState => ({
+		this.setState({
 			newRecipe: false,
-        }));
+        });
         //call API to get all recipes
         this.getRecipes();
 	};
+	//create a new recipe
 	newRecipe = () => {
 		this.setState({
 			newRecipe: true,
@@ -79,6 +80,7 @@ class App extends React.Component {
 				<Header />
 				<Sidebar newRecipe={this.newRecipe} 
 					updateMain={this.updateMain} />
+					{console.table('filteredData: ' + this.state.filteredData)}
 				<Main data={this.state.filteredData} 
 					query={this.state.query}
 					doSearch={this.doSearch}

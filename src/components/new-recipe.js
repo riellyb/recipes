@@ -1,4 +1,5 @@
 import React from 'react';
+import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
 
 export default class NewRecipe extends React.Component {
@@ -6,16 +7,27 @@ export default class NewRecipe extends React.Component {
         super();
         this.state = {
             name: '',
+            category: '',
             ingredients: [],
             directions: [],
+            author:'',
+            prepTime: '',
+            cookTime: '',            
             confirmation: false,
         };
     };
-    handleNameChange = (event) => {
-        this.setState({ name: event.target.value });
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
     };
-    handleDirectionsChange = (event) => {
-        this.setState({ directions: event.target.value });
+    updateIngredients = (ingredients) => {
+    	this.setState({
+            ingredients
+        });
+    };
+    updateCategory = (category) => {
+    	this.setState({
+            category
+        });
     };
     handleSubmit = (event) => {
         //we don't want the form to submit, so we prevent the default behavior
@@ -23,8 +35,12 @@ export default class NewRecipe extends React.Component {
         //TODO actually handle the form and send the input values to our API
         const params = {
         	'name': this.state.name,
+        	'category': this.state.category,
         	'ingredients': this.state.ingredients,
         	'directions': this.state.directions,
+        	'author': this.state.author,
+        	'prepTime': this.state.prepTime,
+        	'cookTime': this.state.cookTime,
         };
         
         this.props.createRecipe(params);
@@ -37,9 +53,14 @@ export default class NewRecipe extends React.Component {
         event.preventDefault();
         this.setState({
             name: '',
+            category: '',
             ingredients: [],
             directions: [],
+            author:'',
+            prepTime: '',
+            cookTime: '',
         });
+      	this.child.clear();
     };
     render() {
         return (
@@ -52,20 +73,41 @@ export default class NewRecipe extends React.Component {
 				<form className="container-fluid" onSubmit={this.handleSubmit} id="new-recipe">
 					<div className="form-group row">
 						<input className="form-control" value={this.state.name}
-          				onChange={this.handleNameChange}
+          				onChange={this.handleChange}
           				type="text" name="name" placeholder="Name of Recipe"/>
           			</div>
-          			<Ingredients ingredients={this.state.ingredients}/>
+          			<CategorySelect updateCategory={this.updateCategory} />
           			<div className="form-group row">
-          				<input className="form-control" value={this.state.directions}
-          				onChange={this.handleDirectionsChange} type="text" name="directions" placeholder="Directions"/>
+						<input className="form-control" value={this.state.author}
+          				onChange={this.handleChange}
+          				type="text" name="author" placeholder="Author (Your Name)"/>
+          			</div>
+          			<Ingredients onRef={ref => (this.child = ref)}
+          				updateIngredients={this.updateIngredients} />
+          			<div className="form-group row">
+          				<textarea className="form-control"
+	          				value={this.state.directions}
+	          				onChange={this.handleChange}
+	          				type="text"
+	          				name="directions"
+	          				placeholder="Directions..."></textarea>
+          			</div>
+          			<div className="form-group row">
+						<input className="form-control" value={this.state.prepTime}
+          				onChange={this.handleChange}
+          				type="text" name="prepTime" placeholder="Prep Time (hours and minutes)"/>
+          			</div>
+          			<div className="form-group row">
+						<input className="form-control" value={this.state.cookTime}
+          				onChange={this.handleChange}
+          				type="text" name="cookTime" placeholder="Cook Time (hours and minutes)"/>
           			</div>
           			<div className="form-group row">
           				<button  
           				type="submit"
           				form="new-recipe"
           				value="Submit"
-          				className="btn btn-primary float-right">Submit</button>
+          				className="btn btn-success float-right">Submit</button>
           				<button
 				          className="btn btn-warning float-left"
 				          onClick={this.handleClearForm}>Clear form</button>

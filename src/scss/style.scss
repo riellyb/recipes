@@ -15,7 +15,6 @@
 .new-recipe {
 
 }
-
 .sidebar {
 	box-sizing: border-box;
 	background-color: #ececec;
@@ -27,4 +26,12 @@
 .btn {
 	margin-top: 15px;
 	margin-right: 15px;
+	&.btn-no-margin {
+		margin-top: 0;
+		margin-right: 0;
+	}
+}
+
+.placeholder {  
+  color: #999;
 }

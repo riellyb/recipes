@@ -10,13 +10,13 @@ var RecipeSchema = new Schema({
   },
   author: String,
   ingredients: [String],
-  categories: [String],
+  category: String,
   images: [String],
   createdDate: {
     type: Date,
     default: Date.now
   },
-  directions: [String],
+  directions: String,
   prepTime: String,
   cookTime: String
 });
