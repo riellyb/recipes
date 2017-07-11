@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import Ingredients from './ingredients.js';
 
 export default class NewRecipe extends React.Component {
     constructor() {
@@ -10,12 +10,9 @@ export default class NewRecipe extends React.Component {
             directions: [],
             confirmation: false,
         };
-    }
+    };
     handleNameChange = (event) => {
         this.setState({ name: event.target.value });
-    };
-    handleIngredientChange = (event) => {
-        this.setState({ ingredients: event.target.value });
     };
     handleDirectionsChange = (event) => {
         this.setState({ directions: event.target.value });
@@ -29,16 +26,8 @@ export default class NewRecipe extends React.Component {
         	'ingredients': this.state.ingredients,
         	'directions': this.state.directions,
         };
-        axios.post('http://localhost:3000/recipes', params)
-      		.then(res => {
-      			console.log(res);
-        		const recipes = res.data;
-        		this.setState({ 
-        			recipes: recipes,
-        			filteredData: recipes,
-        		});
-      		});
-
+        
+        this.props.createRecipe(params);
       	this.handleClearForm(event);
       	this.setState({
             confirmation: true,
@@ -54,22 +43,19 @@ export default class NewRecipe extends React.Component {
     };
     render() {
         return (
-            <section className="new-recipe">
+            <section className="new-recipe container-fluid">
             	{ this.state.confirmation
 	                ? <h3>Recipe Added!</h3>
 	                : <h3></h3>
           		}
 				<h2>Create a New Recipe</h2>
-				<form onSubmit={this.handleSubmit} id="new-recipe">
+				<form className="container-fluid" onSubmit={this.handleSubmit} id="new-recipe">
 					<div className="form-group row">
 						<input className="form-control" value={this.state.name}
           				onChange={this.handleNameChange}
           				type="text" name="name" placeholder="Name of Recipe"/>
           			</div>
-					<div className="form-group row">
-						<input className="form-control" value={this.state.ingredients}
-          				onChange={this.handleIngredientChange} type="text" name="ingredients" placeholder="Ingredients"/>
-          			</div>
+          			<Ingredients ingredients={this.state.ingredients}/>
           			<div className="form-group row">
           				<input className="form-control" value={this.state.directions}
           				onChange={this.handleDirectionsChange} type="text" name="directions" placeholder="Directions"/>

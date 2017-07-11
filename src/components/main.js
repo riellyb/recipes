@@ -6,7 +6,7 @@ import RecipeTable from './recipe-table.js';
 export default class Main extends React.Component {
 	render() {
 		if(this.props.newRecipe) { 
-            return (<section className="main"><NewRecipe /></section>);
+            return (<section className="main"><NewRecipe createRecipe={this.props.createRecipe} /></section>);
         } else { 
         	return(
         		<section className="main">

@@ -39,8 +39,11 @@ class App extends React.Component {
         //get query result
         let queryResult = this.state.recipes;
         queryResult = queryResult.filter(function(recipe){
-	      return recipe.name.toLowerCase().search(
-	        queryText.toLowerCase()) !== -1;
+        	if(recipe.name) {
+        		return recipe.name.toLowerCase().search(
+	        		queryText.toLowerCase()) !== -1;
+        	}
+	      
 	    });
  
         this.setState({
@@ -58,7 +61,18 @@ class App extends React.Component {
         			filteredData: recipes,
         		});
       		});
-	}
+	};
+	createRecipe = (params) => {
+		axios.post('http://localhost:3000/recipes', params)
+      		.then(res => {
+      			console.log(res);
+        		const recipes = res.data;
+        		this.setState({ 
+        			recipes: recipes,
+        			filteredData: recipes,
+        		});
+      		});	
+	};
 	render() {
 		return (
 			<div>
@@ -69,8 +83,8 @@ class App extends React.Component {
 					query={this.state.query}
 					doSearch={this.doSearch}
 					newRecipe={this.state.newRecipe}
-					numberOfUpdates={this.state.numberOfUpdates}
-					content={this.state.mainContent} />
+					content={this.state.mainContent}
+					createRecipe={this.createRecipe} />
 			</div>
 		);
 	};
