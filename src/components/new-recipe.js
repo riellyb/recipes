@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 
 export default class NewRecipe extends React.Component {
     constructor() {
@@ -8,6 +8,7 @@ export default class NewRecipe extends React.Component {
             name: '',
             ingredients: [],
             directions: [],
+            confirmation: false,
         };
     }
     handleNameChange = (event) => {
@@ -23,10 +24,27 @@ export default class NewRecipe extends React.Component {
         //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         //TODO actually handle the form and send the input values to our API
-        console.log(this.state);
+        const params = {
+        	'name': this.state.name,
+        	'ingredients': this.state.ingredients,
+        	'directions': this.state.directions,
+        };
+        axios.post('http://localhost:3000/recipes', params)
+      		.then(res => {
+      			console.log(res);
+        		const recipes = res.data;
+        		this.setState({ 
+        			recipes: recipes,
+        			filteredData: recipes,
+        		});
+      		});
+
+      	this.handleClearForm(event);
+      	this.setState({
+            confirmation: true,
+        });
     };
     handleClearForm = (event) => {
-        //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         this.setState({
             name: '',
@@ -37,6 +55,10 @@ export default class NewRecipe extends React.Component {
     render() {
         return (
             <section className="new-recipe">
+            	{ this.state.confirmation
+	                ? <h3>Recipe Added!</h3>
+	                : <h3></h3>
+          		}
 				<h2>Create a New Recipe</h2>
 				<form onSubmit={this.handleSubmit} id="new-recipe">
 					<div className="form-group row">
