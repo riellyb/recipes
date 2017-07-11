@@ -3,16 +3,17 @@ export default class RecipeTable extends React.Component {
 
     render() {
         //making the rows to display
-        var rows = [];
+        let rows = [];
         this.props.data.forEach(function(recipe) {
-            rows.push(<tr key={recipe.id}><td>{recipe.name}</td></tr>)
+            rows.push(<tr key={recipe.id}><td>{recipe.name}</td><td>{recipe.category}</td></tr>)
         });
         //returning the table
         return (
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Category</th>
                     </tr>
                 </thead>
                 <tbody>{rows}</tbody>

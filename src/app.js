@@ -17,12 +17,13 @@ class App extends React.Component {
             	{
             		'id': 1,
             		'name': 'Cookies',
-            		ingredients: [
+            		'category': 'Baked Goods',
+            		'ingredients': [
             			'milk',
             			'sugar',
             			'egg'
             		],
-            		directions: [
+            		'directions': [
             			'mix',
             			'pour',
             			'bake'
@@ -31,12 +32,13 @@ class App extends React.Component {
             	{
             		'id': 2,
             		'name': 'Cake',
-            		ingredients: [
+            		'category': 'Baked Goods',
+            		'ingredients': [
             			'water',
             			'eggs',
             			'flour'
             		],
-            		directions: [
+            		'directions': [
             			'mix',
             			'pour',
             			'bake'
@@ -45,14 +47,134 @@ class App extends React.Component {
             	{
             		'id': 3,
             		'name': 'Bread',
-            		ingredients: [
+            		'category': 'Baked Goods',
+            		'ingredients': [
             			'bananas',
             			'flour',
             			'egg',
             			'milk',
             			'sugar'
             		],
-            		directions: [
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 4,
+            		'name': 'Chicken',
+            		'category': 'Meat',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 5,
+            		'name': 'Steak',
+            		'category': 'Meat',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 6,
+            		'name': 'Test',
+            		'category': 'Test',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 7,
+            		'name': 'Cereal',
+            		'category': 'Breakfast',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 8,
+            		'name': 'Pork',
+            		'category': 'Meat',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 9,
+            		'name': 'Oatmeal',
+            		'category': 'Breakfast',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
+            			'eat',
+            			'bake',
+            			'mix'
+            		]
+            	},
+            	{
+            		'id': 10,
+            		'name': 'Pasta',
+            		'category': 'Italian',
+            		'ingredients': [
+            			'bananas',
+            			'flour',
+            			'egg',
+            			'milk',
+            			'sugar'
+            		],
+            		'directions': [
             			'eat',
             			'bake',
             			'mix'
@@ -62,6 +184,12 @@ class App extends React.Component {
 	    	recipes: [],
 	    };
 	};
+
+	componentDidMount = () => {
+		this.setState({
+			recipes: this.state.data,
+        });
+  	}
 
 	updateMain = () => {
 		this.setState(prevState => ({
@@ -74,10 +202,8 @@ class App extends React.Component {
         });
 	};
 	doSearch = (queryText) => {
-		console.log(queryText);
-		console.log(this.state.data);
         //get query result
-        var queryResult = this.state.data;
+        let queryResult = this.state.data;
         queryResult = queryResult.filter(function(recipe){
 	      return recipe.name.toLowerCase().search(
 	        queryText.toLowerCase()) !== -1;
@@ -87,7 +213,6 @@ class App extends React.Component {
             query:queryText,
             recipes: queryResult
         });
-        console.log(this.state.recipes);
 	};
 	render() {
 		return (
