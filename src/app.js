@@ -37,6 +37,7 @@ class App extends React.Component {
 	newRecipe = () => {
 		this.setState({
 			newRecipe: true,
+			openedARecipe: false,
         });
 	};
 	doSearch = (queryText) => {
@@ -47,7 +48,6 @@ class App extends React.Component {
         		return recipe.name.toLowerCase().search(
 	        		queryText.toLowerCase()) !== -1;
         	}
-	      
 	    });
  
         this.setState({
@@ -75,11 +75,9 @@ class App extends React.Component {
       		});	
 	};
 	openARecipe = (recipeId) => {
-		event.preventDefault();
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
         		const recipe = res.data;
-        		console.log(recipe);
         		this.setState({ 
         			openRecipe: recipe,
         			openedARecipe: true,
@@ -92,30 +90,33 @@ class App extends React.Component {
 		});
 	};
 	render() {
+		let mainContent;
 		if(this.state.openedARecipe) { 
-            return (
-            	<div>
-					<Header />
-					<Sidebar newRecipe={this.newRecipe} 
-						updateMain={this.updateMain} />
-	            	<Recipe close={this.closeARecipe} data={this.state.openRecipe} />
-	            </div>
-            );
+            mainContent = () => {
+            	return (
+            		<Recipe close={this.closeARecipe} data={this.state.openRecipe} />
+        		);
+        	};
         } else { 
-        	return(
-        		<div>
-					<Header />
-					<Sidebar newRecipe={this.newRecipe} 
-					updateMain={this.updateMain} />
-					<Main data={this.state.filteredData} 
+        	mainContent = () => {
+            	return (
+            		<Main data={this.state.filteredData} 
 					openRecipe={this.openARecipe}
 					query={this.state.query}
 					doSearch={this.doSearch}
 					newRecipe={this.state.newRecipe}
 					createRecipe={this.createRecipe} />
-				</div>
-			);
-		}
+        		);
+        	};
+        }	
+    	return(
+    		<div>
+				<Header />
+				<Sidebar newRecipe={this.newRecipe} 
+				updateMain={this.updateMain} />
+				{mainContent()}
+			</div>
+		);
 	};
 }
 

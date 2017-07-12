@@ -5,15 +5,14 @@
     background-color: #000;
 }
 
-.main {
+.main,
+.recipe-display {
     box-sizing: border-box;
     background-color: #fff;
     float: right;
     width: 70%;
     padding: 40px;
 }
-
-.new-recipe {}
 
 .sidebar {
     box-sizing: border-box;
@@ -24,6 +23,16 @@
     .btn {
         margin-top: 15px;
     }
+}
+
+.recipe-header {
+    position: relative;
+}
+
+.close-recipe {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .btn {
@@ -41,4 +50,16 @@
 
 .placeholder {
     color: #999;
+}
+
+.link {
+    cursor: pointer;
+    color: #0000EE;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.recipe-name {
+
 }

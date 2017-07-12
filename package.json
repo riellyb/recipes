@@ -38,6 +38,7 @@
     "body-parser": "^1.17.2",
     "compass-mixins": "^0.12.10",
     "express": "^4.15.3",
+    "moment": "^2.18.1",
     "mongodb": "^2.2.29",
     "mongoose": "^4.11.0",
     "react": "^15.6.1",

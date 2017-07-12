@@ -64,7 +64,7 @@ export default class NewRecipe extends React.Component {
     };
     render() {
         return (
-            <section className="new-recipe container-fluid">
+            <section className="new-recipe">
             	{ this.state.confirmation
 	                ? <h3>Recipe Added!</h3>
 	                : <h3></h3>
@@ -72,15 +72,19 @@ export default class NewRecipe extends React.Component {
 				<h2>Create a New Recipe</h2>
 				<form className="container-fluid" onSubmit={this.handleSubmit} id="new-recipe">
 					<div className="form-group row">
-						<input className="form-control" value={this.state.name}
+						<input className="form-control"
+                  value={this.state.name}
           				onChange={this.handleChange}
-          				type="text" name="name" placeholder="Name of Recipe"/>
+          				type="text" name="name"
+                  placeholder="Name of Recipe"/>
           			</div>
           			<CategorySelect updateCategory={this.updateCategory} />
           			<div className="form-group row">
-						<input className="form-control" value={this.state.author}
+						<input className="form-control"
+                  value={this.state.author}
           				onChange={this.handleChange}
-          				type="text" name="author" placeholder="Author (Your Name)"/>
+          				type="text" name="author"
+                  placeholder="Author (Your Name)"/>
           			</div>
           			<Ingredients onRef={ref => (this.child = ref)}
           				updateIngredients={this.updateIngredients} />
@@ -93,16 +97,20 @@ export default class NewRecipe extends React.Component {
 	          				placeholder="Directions..."></textarea>
           			</div>
           			<div className="form-group row">
-						<input className="form-control" value={this.state.prepTime}
-          				onChange={this.handleChange}
-          				type="text" name="prepTime" placeholder="Prep Time (hours and minutes)"/>
+						<input className="form-control"
+                value={this.state.prepTime}
+        				onChange={this.handleChange}
+        				type="text" name="prepTime"
+                placeholder="Prep Time (hours and minutes)"/>
           			</div>
           			<div className="form-group row">
-						<input className="form-control" value={this.state.cookTime}
-          				onChange={this.handleChange}
-          				type="text" name="cookTime" placeholder="Cook Time (hours and minutes)"/>
+						<input className="form-control"
+                value={this.state.cookTime}
+        				onChange={this.handleChange}
+        				type="text" name="cookTime"
+                placeholder="Cook Time (hours and minutes)"/>
           			</div>
-          			<div className="form-group row">
+          	<div className="form-group row">
           				<button  
           				type="submit"
           				form="new-recipe"

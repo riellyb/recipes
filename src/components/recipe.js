@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import IngredientsList from './ingredients-list.js';
 
 
@@ -13,19 +14,23 @@ export default class Recipe extends React.Component {
 		return (
 
 			<div className="recipe-display container-fluid">
-				<div className="header">
+				<div className="recipe-header">
 					<h1>{this.state.data.name}</h1>
-					<h2>By {this.state.data.author}</h2>
+					<h3>By {this.state.data.author}</h3>
+					<hr />
 					<h4>Category: {this.state.data.category}</h4>
-					<div className="recipe-date">{this.state.data.createdDate}</div>
-					<button className="btn btn-danger pull-right btn-sm close-recipe" onClick={this.props.closeARecipe}>x</button>
+					<p className="recipe-date">Created: {moment(this.state.data.createdDate).format('MMMM Do YYYY, h:mm:ss a')}</p>
+					<button
+						className="btn btn-danger pull-right btn-sm close-recipe"
+						onClick={this.props.close}
+						title="Close this Recipe">x</button>
 				</div>
 				<div className="recipe-body">
 					<div className="recipe-timing">
-						<div>Prep Time: {this.state.data.prepTime}</div>
-						<div>Cook Time: {this.state.data.prepTime}</div>
+						<p>Prep Time: {this.state.data.prepTime}</p>
+						<p>Cook Time: {this.state.data.prepTime}</p>
 					</div>
-					<div className='ingredients row panel panel-info'>
+					<div className='ingredients panel panel-info'>
     					<div className='panel-heading'>Ingredients:</div>
 	        			<div className='panel-body'>
 							<div className="ingredients-list">
@@ -33,7 +38,7 @@ export default class Recipe extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className='directions row panel panel-success'>
+					<div className='directions panel panel-success'>
     					<div className='panel-heading'>Directions:</div>
 	        			<div className='panel-body'>
 							{this.state.data.directions}
