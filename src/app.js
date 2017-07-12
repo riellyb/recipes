@@ -112,7 +112,6 @@ class App extends React.Component {
 					query={this.state.query}
 					doSearch={this.doSearch}
 					newRecipe={this.state.newRecipe}
-					content={this.state.mainContent}
 					createRecipe={this.createRecipe} />
 				</div>
 			);

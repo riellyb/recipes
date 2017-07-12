@@ -51,7 +51,7 @@ export default class Ingredients extends React.Component {
 		  				</div>
 	                   	<div className="col-xs-4">
 	                   		<input type='button'
-                            className='btn-no-margin btn btn-danger'
+                            className='btn-sm btn btn-danger'
                             value='x'
                             title="Remove this ingredient"
                             onClick={this.removeClick.bind(this,i)} />
@@ -72,7 +72,7 @@ export default class Ingredients extends React.Component {
 		          		<input type='button'
 				          	value='+'
                             title="Add an ingredient"
-				          	className='btn btn-primary'
+				          	className='btn btn-sm btn-primary'
 				          	onClick={this.addClick} />
 
           			</div>

@@ -5,7 +5,6 @@ export default class IngredientsList extends React.Component {
         super(props);
     };
     render() {
-        //making the rows to display
         let ingredientList = [];
         this.props.ingredients.forEach( (ingredient) => {
             ingredientList.push(
