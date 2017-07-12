@@ -12,7 +12,7 @@ export default class Main extends React.Component {
         		<section className="main">
 					<h2>Browse Recipes</h2>
 					<Search doSearch={this.props.doSearch} query={this.props.query}/>
-					<RecipeTable data={this.props.data} />
+					<RecipeTable openRecipe={this.props.openRecipe} data={this.props.data} />
 				</section>
 			);
 		}

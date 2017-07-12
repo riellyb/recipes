@@ -4,6 +4,7 @@ import Header from './components/header.js';
 import Sidebar from './components/sidebar.js';
 import Main from './components/main.js';
 import axios from 'axios';
+import Recipe from './components/recipe.js';
 
 require('./scss/style.scss');
 
@@ -16,6 +17,8 @@ class App extends React.Component {
 	    	query:'',
 	    	recipes: [],
 	    	filteredData: [],
+	    	openRecipe: [],
+	    	openedARecipe: false,
 	    };
 	};
 
@@ -59,29 +62,61 @@ class App extends React.Component {
         		this.setState({ 
         			recipes: recipes,
         			filteredData: recipes,
+        			openedARecipe: false,
         		});
       		});
 	};
 	createRecipe = (params) => {
 		axios.post('http://localhost:3000/recipes', params)
       		.then(res => {
-
+      			this.setState({ 
+        			openedARecipe: false,
+        		});
       		});	
 	};
+	openARecipe = (recipeId) => {
+		event.preventDefault();
+		axios.get('http://localhost:3000/recipes/' + recipeId)
+      		.then(res => {
+        		const recipe = res.data;
+        		console.log(recipe);
+        		this.setState({ 
+        			openRecipe: recipe,
+        			openedARecipe: true,
+        		});
+      		});
+	};
+	closeARecipe = () => {
+		this.setState({ 
+			openedARecipe: false,
+		});
+	};
 	render() {
-		return (
-			<div>
-				<Header />
-				<Sidebar newRecipe={this.newRecipe} 
+		if(this.state.openedARecipe) { 
+            return (
+            	<div>
+					<Header />
+					<Sidebar newRecipe={this.newRecipe} 
+						updateMain={this.updateMain} />
+	            	<Recipe close={this.closeARecipe} data={this.state.openRecipe} />
+	            </div>
+            );
+        } else { 
+        	return(
+        		<div>
+					<Header />
+					<Sidebar newRecipe={this.newRecipe} 
 					updateMain={this.updateMain} />
-				<Main data={this.state.filteredData} 
+					<Main data={this.state.filteredData} 
+					openRecipe={this.openARecipe}
 					query={this.state.query}
 					doSearch={this.doSearch}
 					newRecipe={this.state.newRecipe}
 					content={this.state.mainContent}
 					createRecipe={this.createRecipe} />
-			</div>
-		);
+				</div>
+			);
+		}
 	};
 }
 

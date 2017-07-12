@@ -107,9 +107,11 @@ export default class NewRecipe extends React.Component {
           				type="submit"
           				form="new-recipe"
           				value="Submit"
+                  title="Submit your recipe"
           				className="btn btn-success float-right">Submit</button>
           				<button
 				          className="btn btn-warning float-left"
+                  title="Clear the recipe form"
 				          onClick={this.handleClearForm}>Clear form</button>
 				    </div>
 				</form>

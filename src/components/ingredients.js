@@ -50,7 +50,11 @@ export default class Ingredients extends React.Component {
 		  						placeholder='Ingredient' />
 		  				</div>
 	                   	<div className="col-xs-4">
-	                   		<input type='button' className='btn-no-margin btn btn-danger' value='x' onClick={this.removeClick.bind(this,i)}/>
+	                   		<input type='button'
+                            className='btn-no-margin btn btn-danger'
+                            value='x'
+                            title="Remove this ingredient"
+                            onClick={this.removeClick.bind(this,i)} />
 	                   	</div>
 	               </div>
             )
@@ -67,8 +71,9 @@ export default class Ingredients extends React.Component {
 		          	<div className='form-group'>
 		          		<input type='button'
 				          	value='+'
+                            title="Add an ingredient"
 				          	className='btn btn-primary'
-				          	onClick={this.addClick}/>
+				          	onClick={this.addClick} />
 
           			</div>
           		</div>
