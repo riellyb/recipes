@@ -6,9 +6,9 @@ export default class IngredientsList extends React.Component {
     };
     render() {
         let ingredientList = [];
-        this.props.ingredients.forEach( (ingredient) => {
+        this.props.ingredients.forEach( (ingredient, index) => {
             ingredientList.push(
-                <li key={ingredient}>{ingredient}</li> 
+                <li key={index}>{ingredient}</li> 
             )
         });
         return (

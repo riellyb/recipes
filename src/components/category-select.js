@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default class Ingredients extends React.Component {
+export default class CategorySelect extends React.Component {
     constructor(props) {
         super(props);
-        let value = this.props.value ? this.props.value : '';
-        this.state = { selectValue: value };
+        let selectValue = this.props.value || '';
+        this.state = { selectValue };
     };
     handleChange = (e) => {
-        this.setState({ selectValue: e.target.value });
-        this.props.updateCategory(this.state.selectValue);
+        this.setState({ selectValue: e.target.value }, () =>
+        	this.props.updateCategory(this.state.selectValue));
     };
 
     render() {
@@ -19,7 +19,9 @@ export default class Ingredients extends React.Component {
 	    }
         return (
             <div className='form-group row'>
-    			<select placeholder="Select a Category" className={className} defaultValue={this.state.selectValue} 
+    			<select value={this.state.selectValue}
+    				placeholder="Select a Category"
+    				className={className}  
  					onChange={this.handleChange} >
  					<option value="">Select a Category...</option>
 				    <option value="Breakfast">Breakfast</option>

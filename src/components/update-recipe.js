@@ -6,14 +6,14 @@ export default class UpdateRecipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.data._id,
-            name: this.props.data.name,
-            category: this.props.data.category,
-            ingredients: this.props.data.ingredients,
-            directions: this.props.data.directions,
-            author:this.props.data.author,
-            prepTime: this.props.data.prepTime,
-            cookTime: this.props.data.cookTime,
+            id: this.props.data._id || '',
+            name: this.props.data.name || '',
+            category: this.props.data.category || '',
+            ingredients: this.props.data.ingredients || [],
+            directions: this.props.data.directions || '',
+            author: this.props.data.author || '',
+            prepTime: this.props.data.prepTime || '',
+            cookTime: this.props.data.cookTime || '',
         };
     };
     handleChange = (event) => {
@@ -25,6 +25,7 @@ export default class UpdateRecipe extends React.Component {
         });
     };
     updateCategory = (category) => {
+      console.log(category);
     	this.setState({
             category
         });

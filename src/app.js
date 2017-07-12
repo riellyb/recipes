@@ -94,14 +94,15 @@ class App extends React.Component {
       			console.log(res);
       			this.setState({ 
         			updatingRecipe: false,
-        		});
-        		this.openARecipe(res.data._id);
+        		}, () => this.openARecipe(res.data._id));
+
       		});	
 	};
 	openARecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
-        		const recipe = res.data;
+      			console.log(res);
+        		let recipe = res.data;
         		this.setState({ 
         			openRecipe: recipe,
         			openedARecipe: true,

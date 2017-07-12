@@ -19,7 +19,7 @@ export default class Recipe extends React.Component {
 					<h3>By {this.state.data.author}</h3>
 					<hr />
 					<h4>Category: {this.state.data.category}</h4>
-					<p className="recipe-date">Created: {moment(this.state.data.createdDate).format('MMMM Do YYYY, h:mm:ss a')}</p>
+					<p className="recipe-date">Created: {moment(this.state.data.createdDate).format('MMMM Do YYYY, h:mm a')}</p>
 					<div className="recipe-btns">						
 						<button
 							className="btn btn-danger pull-right btn-sm close-recipe"
