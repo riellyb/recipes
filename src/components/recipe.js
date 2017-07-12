@@ -20,15 +20,21 @@ export default class Recipe extends React.Component {
 					<hr />
 					<h4>Category: {this.state.data.category}</h4>
 					<p className="recipe-date">Created: {moment(this.state.data.createdDate).format('MMMM Do YYYY, h:mm:ss a')}</p>
-					<button
-						className="btn btn-danger pull-right btn-sm close-recipe"
-						onClick={this.props.close}
-						title="Close this Recipe">x</button>
+					<div className="recipe-btns">						
+						<button
+							className="btn btn-danger pull-right btn-sm close-recipe"
+							onClick={this.props.close}
+							title="Close this Recipe">x</button>
+						<button
+							className="btn btn-success pull-right btn-sm edit-recipe"
+							onClick={this.props.edit}
+							title="Edit this Recipe">Edit</button>
+					</div>
 				</div>
 				<div className="recipe-body">
 					<div className="recipe-timing">
 						<p>Prep Time: {this.state.data.prepTime}</p>
-						<p>Cook Time: {this.state.data.prepTime}</p>
+						<p>Cook Time: {this.state.data.cookTime}</p>
 					</div>
 					<div className='ingredients panel panel-info'>
     					<div className='panel-heading'>Ingredients:</div>

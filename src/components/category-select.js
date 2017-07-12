@@ -1,9 +1,10 @@
 import React from 'react';
 
 export default class Ingredients extends React.Component {
-    constructor() {
-        super();
-        this.state = { selectValue: '' };
+    constructor(props) {
+        super(props);
+        let value = this.props.value ? this.props.value : '';
+        this.state = { selectValue: value };
     };
     handleChange = (e) => {
         this.setState({ selectValue: e.target.value });

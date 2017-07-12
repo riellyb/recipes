@@ -5,6 +5,7 @@ import Sidebar from './components/sidebar.js';
 import Main from './components/main.js';
 import axios from 'axios';
 import Recipe from './components/recipe.js';
+import UpdateRecipe from './components/update-recipe.js';
 
 require('./scss/style.scss');
 
@@ -19,6 +20,7 @@ class App extends React.Component {
 	    	filteredData: [],
 	    	openRecipe: [],
 	    	openedARecipe: false,
+	    	updatingRecipe: false,
 	    };
 	};
 
@@ -35,9 +37,20 @@ class App extends React.Component {
 	};
 	//create a new recipe
 	newRecipe = () => {
+		if(this.state.updatingRecipe) {
+			if(confirm('You have unsaved edits do you wish to abandon them?')) {
+				this.setState({
+			newRecipe: true,
+			openedARecipe: false,
+        });
+			} else {
+				return;
+			}
+		}
 		this.setState({
 			newRecipe: true,
 			openedARecipe: false,
+			updatingRecipe: false,
         });
 	};
 	doSearch = (queryText) => {
@@ -74,6 +87,17 @@ class App extends React.Component {
         		});
       		});	
 	};
+	updateRecipe = (params) => {
+		console.log(params)
+		axios.put('http://localhost:3000/recipes/' + params.id, params)
+      		.then(res => {
+      			console.log(res);
+      			this.setState({ 
+        			updatingRecipe: false,
+        		});
+        		this.openARecipe(res.data._id);
+      		});	
+	};
 	openARecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
@@ -84,18 +108,38 @@ class App extends React.Component {
         		});
       		});
 	};
+	editARecipe = () => {
+		this.setState({ 
+			updatingRecipe: true,
+		});
+	};
 	closeARecipe = () => {
 		this.setState({ 
 			openedARecipe: false,
+		});
+	};
+	closeEditView = () => {
+		this.setState({ 
+			updatingRecipe: false,
 		});
 	};
 	render() {
 		let mainContent;
 		if(this.state.openedARecipe) { 
             mainContent = () => {
-            	return (
-            		<Recipe close={this.closeARecipe} data={this.state.openRecipe} />
-        		);
+            	if(this.state.updatingRecipe) {
+            		return (
+	            		<UpdateRecipe close={this.closeEditView}
+	            			data={this.state.openRecipe}
+	            			updateRecipe={this.updateRecipe} />
+	        		);
+            	} else {
+	            	return (
+	            		<Recipe edit={this.editARecipe}
+	            			close={this.closeARecipe}
+	            			data={this.state.openRecipe} />
+	        		);
+	        	}
         	};
         } else { 
         	mainContent = () => {

@@ -1,9 +1,11 @@
 import React from 'react';
 
 export default class Ingredients extends React.Component {
-    constructor() {
-        super();
-        this.state = { value: [], count: 1 };
+    constructor(props) {
+        super(props);
+        let value = this.props.value ? this.props.value : [];
+        let count = this.props.value ? this.props.value.length : 1;
+        this.state = { value, count };
     };
     componentDidMount = () => {
         this.props.onRef(this)
