@@ -27,32 +27,47 @@ class App extends React.Component {
 	componentDidMount = () => {
 		this.getRecipes();
   	}
-  	//update recipe list
-	updateMain = () => {
-		this.setState({
-			newRecipe: false,
-        });
-        //call API to get all recipes
-        this.getRecipes();
+  	//open recipe list
+	openBrowse = () => {
+        if(this.state.updatingRecipe) {
+			if(confirm('You have unsaved edits do you wish to abandon them?')) {
+				this.setState({
+					newRecipe: false,
+					openedARecipe: false,
+					updatingRecipe: false,
+		        },  this.getRecipes);
+		       
+			}
+		} else {
+			this.setState({
+					newRecipe: false,
+					openedARecipe: false,
+					updatingRecipe: false,
+		        },  this.getRecipes);
+		}
 	};
 	//create a new recipe
 	newRecipe = () => {
+		//if edit view is open make sure we want to navigate
 		if(this.state.updatingRecipe) {
 			if(confirm('You have unsaved edits do you wish to abandon them?')) {
 				this.setState({
-			newRecipe: true,
-			openedARecipe: false,
-        });
+					newRecipe: true,
+					openedARecipe: false,
+					updatingRecipe: false,
+       		 	});
 			} else {
 				return;
 			}
+		} else {
+			this.setState({
+				newRecipe: true,
+				openedARecipe: false,
+				updatingRecipe: false,
+	        });
 		}
-		this.setState({
-			newRecipe: true,
-			openedARecipe: false,
-			updatingRecipe: false,
-        });
 	};
+	//filter browse table based on user input
 	doSearch = (queryText) => {
         //get query result
         let queryResult = this.state.recipes;
@@ -68,6 +83,7 @@ class App extends React.Component {
             filteredData: queryResult
         });
 	};
+	//get all recipes from api
 	getRecipes = () => {
 		axios.get('http://localhost:3000/recipes')
       		.then(res => {
@@ -79,6 +95,7 @@ class App extends React.Component {
         		});
       		});
 	};
+	//send new recipe data to api
 	createRecipe = (params) => {
 		axios.post('http://localhost:3000/recipes', params)
       		.then(res => {
@@ -87,21 +104,21 @@ class App extends React.Component {
         		});
       		});	
 	};
+	//send new recipe data to api
 	updateRecipe = (params) => {
 		console.log(params)
 		axios.put('http://localhost:3000/recipes/' + params.id, params)
       		.then(res => {
-      			console.log(res);
       			this.setState({ 
         			updatingRecipe: false,
         		}, () => this.openARecipe(res.data._id));
 
       		});	
 	};
+	//open a recipe
 	openARecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
-      			console.log(res);
         		let recipe = res.data;
         		this.setState({ 
         			openRecipe: recipe,
@@ -109,16 +126,34 @@ class App extends React.Component {
         		});
       		});
 	};
+	//tell api to delete recipe
+	deleteARecipe = (recipeId) => {
+		axios.delete('http://localhost:3000/recipes/' + recipeId)
+      		.then(res => {
+      			this.setState({ 
+					updatingRecipe: false,
+				}, this.openBrowse);
+      		});
+	};
+	//open the edit recipe view
 	editARecipe = () => {
 		this.setState({ 
 			updatingRecipe: true,
 		});
 	};
+	//close new recipe view
+	closeCreateARecipe = () => {
+		this.setState({ 
+			newRecipe: false,
+		});
+	};
+	//close recipe view
 	closeARecipe = () => {
 		this.setState({ 
 			openedARecipe: false,
 		});
 	};
+	//close edit recipe view
 	closeEditView = () => {
 		this.setState({ 
 			updatingRecipe: false,
@@ -132,7 +167,8 @@ class App extends React.Component {
             		return (
 	            		<UpdateRecipe close={this.closeEditView}
 	            			data={this.state.openRecipe}
-	            			updateRecipe={this.updateRecipe} />
+	            			updateRecipe={this.updateRecipe}	       
+	            			deleteARecipe={this.deleteARecipe} />
 	        		);
             	} else {
 	            	return (
@@ -150,7 +186,8 @@ class App extends React.Component {
 					query={this.state.query}
 					doSearch={this.doSearch}
 					newRecipe={this.state.newRecipe}
-					createRecipe={this.createRecipe} />
+					createRecipe={this.createRecipe}
+					closeCreateARecipe={this.closeCreateARecipe} />
         		);
         	};
         }	
@@ -158,7 +195,7 @@ class App extends React.Component {
     		<div>
 				<Header />
 				<Sidebar newRecipe={this.newRecipe} 
-				updateMain={this.updateMain} />
+				openBrowse={this.openBrowse} />
 				{mainContent()}
 			</div>
 		);

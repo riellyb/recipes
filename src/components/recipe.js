@@ -24,7 +24,7 @@ export default class Recipe extends React.Component {
 						<button
 							className="btn btn-danger pull-right btn-sm close-recipe"
 							onClick={this.props.close}
-							title="Close this Recipe">x</button>
+							title="Close this Recipe">Close</button>
 						<button
 							className="btn btn-success pull-right btn-sm edit-recipe"
 							onClick={this.props.edit}

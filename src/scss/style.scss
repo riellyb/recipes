@@ -11,9 +11,15 @@
     box-sizing: border-box;
     background-color: #fff;
     float: right;
-    width: 70%;
+    width: 66%;
     padding: 40px;
     position: relative;
+    border: 1px solid #ececec;
+    margin: 2%;
+}
+.update-recipe {
+    background-color: #ececec;
+    box-shadow: #ccc 10px 10px 20px;
 }
 
 .sidebar {
@@ -67,10 +73,18 @@
 
 .link {
     cursor: pointer;
-    color: #0000EE;
+    color: #337ab7;
     &:hover {
         text-decoration: underline;
     }
 }
 
 .recipe-name {}
+
+.directions .panel-body {
+    white-space: pre;
+}
+
+.directions-text {
+    min-height: 200px;
+}

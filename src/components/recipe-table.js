@@ -11,6 +11,7 @@ export default class RecipeTable extends React.Component {
                             <td>
                                 <div className="link recipe-name">{recipe.name}</div>
                             </td>
+                        <td>{recipe.author}</td>
                         <td>{recipe.category}</td>
                 </tr>);
         });
@@ -19,7 +20,8 @@ export default class RecipeTable extends React.Component {
             <table className="table table-hover table-bordered table-striped table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Recipe</th>
+                        <th>Author</th>
                         <th>Category</th>
                     </tr>
                 </thead>

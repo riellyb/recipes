@@ -14,6 +14,7 @@ export default class UpdateRecipe extends React.Component {
             author: this.props.data.author || '',
             prepTime: this.props.data.prepTime || '',
             cookTime: this.props.data.cookTime || '',
+            deleted: false,
         };
     };
     handleChange = (event) => {
@@ -25,7 +26,6 @@ export default class UpdateRecipe extends React.Component {
         });
     };
     updateCategory = (category) => {
-      console.log(category);
     	this.setState({
             category
         });
@@ -47,9 +47,6 @@ export default class UpdateRecipe extends React.Component {
         
         this.props.updateRecipe(params);
       	this.handleClearForm(event);
-      	this.setState({
-            confirmation: true,
-        });
     };
     handleClearForm = (event) => {
         event.preventDefault();
@@ -64,14 +61,19 @@ export default class UpdateRecipe extends React.Component {
         });
       	this.child.clear();
     };
+    deleteRecipe = () => {      
+      if(confirm('Are you sure you want to permanently delete this recipe?')) {
+        this.props.deleteARecipe(this.state.id);
+        this.setState({
+            deleted: true,
+        });
+        this.handleClearForm(event);
+      }
+    };
     render() {
         return (
           <section className="update-recipe">
-          	{ this.state.confirmation
-                ? <h3>Recipe Updated!</h3>
-                : <h3></h3>
-        		}
-    				<h2>Update this Recipe</h2>
+    				<h2>Update {this.state.name} Recipe</h2>
             <div className="recipe-btns">           
                 <button
                   className="btn btn-danger pull-right btn-sm close-recipe"
@@ -98,7 +100,7 @@ export default class UpdateRecipe extends React.Component {
                       onRef={ref => (this.child = ref)}
               				updateIngredients={this.updateIngredients} />
               			<div className="form-group row">
-              				<textarea className="form-control"
+              				<textarea className="directions-text form-control"
     	          				value={this.state.directions}
     	          				onChange={this.handleChange}
     	          				type="text"
@@ -121,15 +123,19 @@ export default class UpdateRecipe extends React.Component {
               			</div>
               	<div className="form-group row">
               				<button  
-              				type="submit"
-              				form="new-recipe"
-              				value="Submit"
-                      title="Update your recipe"
-              				className="btn btn-success float-right">Update this Recipe</button>
+                				type="submit"
+                				form="new-recipe"
+                				value="Submit"
+                        title="Update your recipe"
+                				className="btn btn-success float-right">Update {this.state.name} Recipe</button>
               				<button
-    				          className="btn btn-warning float-left"
-                      title="Clear the recipe form"
-    				          onClick={this.handleClearForm}>Clear form</button>
+      				          className="btn btn-warning float-left"
+                        title="Clear the recipe form"
+      				          onClick={this.handleClearForm}>Clear form</button>
+                      <button
+                        className="btn btn-danger float-left"
+                        title="Delete"
+                        onClick={this.deleteRecipe}>Delete</button>
     				    </div>
     				</form>
 			</section>

@@ -112,15 +112,19 @@ export default class NewRecipe extends React.Component {
           			</div>
           	<div className="form-group row">
           				<button  
-          				type="submit"
-          				form="new-recipe"
-          				value="Submit"
-                  title="Submit your recipe"
-          				className="btn btn-success float-right">Create Recipe</button>
+            				type="submit"
+            				form="new-recipe"
+            				value="Submit"
+                    title="Submit your recipe"
+            				className="btn btn-success float-right">Create Recipe</button>
           				<button
 				          className="btn btn-warning float-left"
-                  title="Clear the recipe form"
-				          onClick={this.handleClearForm}>Clear form</button>
+                    title="Clear the recipe form"
+  				          onClick={this.handleClearForm}>Clear form</button>
+                    <button
+                    className="btn btn-danger float-left"
+                    title="Cancel"
+                    onClick={this.props.cancel}>Cancel</button>
 				    </div>
 				</form>
 			</section>
