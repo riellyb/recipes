@@ -21,8 +21,8 @@ export default class Ingredients extends React.Component {
     handleChange = (i, event) => {
         let value = this.state.value.slice();
         value[i] = event.target.value;
-        this.setState({ value });
-        this.props.updateIngredients(this.state.value);
+        this.setState({ value }, () => this.props.updateIngredients(this.state.value));
+        
     };
     //add an ingredient
     addClick = () => {
