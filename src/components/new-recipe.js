@@ -8,6 +8,7 @@ export default class NewRecipe extends React.Component {
         this.state = {
             name: '',
             category: '',
+            description: '',
             ingredients: [],
             directions: [],
             author:'',
@@ -36,6 +37,7 @@ export default class NewRecipe extends React.Component {
         const params = {
         	'name': this.state.name,
         	'category': this.state.category,
+          'description': this.state.description,
         	'ingredients': this.state.ingredients,
         	'directions': this.state.directions,
         	'author': this.state.author,
@@ -53,7 +55,8 @@ export default class NewRecipe extends React.Component {
         event.preventDefault();
         this.setState({
             name: '',
-            category: '',
+            category: '',            
+            description: '',
             ingredients: [],
             directions: [],
             author:'',
@@ -80,11 +83,18 @@ export default class NewRecipe extends React.Component {
           			</div>
           			<CategorySelect updateCategory={this.updateCategory} />
           			<div className="form-group row">
-						<input className="form-control"
-                  value={this.state.author}
-          				onChange={this.handleChange}
-          				type="text" name="author"
-                  placeholder="Author (Your Name)"/>
+                  <input className="form-control"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                        type="text" name="description"
+                        placeholder="Description"/>
+                </div>
+                <div className="form-group row">
+      						<input className="form-control"
+                        value={this.state.author}
+                				onChange={this.handleChange}
+                				type="text" name="author"
+                        placeholder="Author (Your Name)"/>
           			</div>
           			<Ingredients onRef={ref => (this.child = ref)}
           				updateIngredients={this.updateIngredients} />

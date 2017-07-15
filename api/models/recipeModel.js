@@ -11,6 +11,7 @@ var RecipeSchema = new Schema({
   author: String,
   ingredients: [String],
   category: String,
+  description: String,
   images: [String],
   createdDate: {
     type: Date,

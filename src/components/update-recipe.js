@@ -9,6 +9,7 @@ export default class UpdateRecipe extends React.Component {
             id: this.props.data._id || '',
             name: this.props.data.name || '',
             category: this.props.data.category || '',
+            description: this.props.data.description || '',
             ingredients: this.props.data.ingredients || [],
             directions: this.props.data.directions || '',
             author: this.props.data.author || '',
@@ -38,6 +39,7 @@ export default class UpdateRecipe extends React.Component {
           'id': this.state.id,
         	'name': this.state.name,
         	'category': this.state.category,
+          'description': this.state.description,
         	'ingredients': this.state.ingredients,
         	'directions': this.state.directions,
         	'author': this.state.author,
@@ -53,6 +55,7 @@ export default class UpdateRecipe extends React.Component {
         this.setState({
             name: '',
             category: '',
+            description: '',
             ingredients: [],
             directions: [],
             author:'',
@@ -90,6 +93,13 @@ export default class UpdateRecipe extends React.Component {
               			</div>
               			<CategorySelect value={this.state.category} updateCategory={this.updateCategory} />
               			<div className="form-group row">
+                  <input className="form-control"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                        type="text" name="description"
+                        placeholder="Description"/>
+                </div>
+                    <div className="form-group row">
     						<input className="form-control"
                       value={this.state.author}
               				onChange={this.handleChange}

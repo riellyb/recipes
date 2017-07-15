@@ -106,11 +106,8 @@ class App extends React.Component {
 	};
 	//send new recipe data to api
 	updateRecipe = (params) => {
-		console.log(params)
 		axios.put('http://localhost:3000/recipes/' + params.id, params)
       		.then(res => {
-      			console.log('Update response: ');
-      			console.log(res);
       			this.setState({ 
         			updatingRecipe: false,
         		}, () => this.openARecipe(res.data._id));
@@ -121,8 +118,6 @@ class App extends React.Component {
 	openARecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
-      			console.log('Open response: ');
-      			console.log(res);
         		let recipe = res.data;
         		this.setState({ 
         			openRecipe: recipe,
