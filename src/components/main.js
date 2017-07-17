@@ -6,14 +6,14 @@ import RecipeTable from './recipe-table.js';
 export default class Main extends React.Component {
 	render() {
 		if(this.props.newRecipe) { 
-            return (<section className="main"><NewRecipe cancel={this.props.closeCreateARecipe} createRecipe={this.props.createRecipe} /></section>);
+            return (<div><NewRecipe cancel={this.props.closeCreateARecipe} createRecipe={this.props.createRecipe} /></div>);
         } else { 
         	return(
-        		<section className="main">
+        		<div>
 					<h2>Browse Recipes</h2>
 					<Search doSearch={this.props.doSearch} query={this.props.query}/>
 					<RecipeTable openRecipe={this.props.openRecipe} data={this.props.data} />
-				</section>
+				</div>
 			);
 		}
 	}

@@ -5,9 +5,7 @@
     background-color: #000;
 }
 
-.main,
-.recipe-display,
-.update-recipe {
+.main {
     box-sizing: border-box;
     background-color: #fff;
     float: right;
@@ -17,7 +15,15 @@
     border: 1px solid #ececec;
     margin: 2%;
 }
+#root > div > section > div > div {
+    position: relative!important;
+    display: block!important;
+        
+}
+
 .update-recipe {
+    padding: 40px;
+    position: relative;
     background-color: #ececec;
     box-shadow: #ccc 10px 10px 20px;
     margin: 20px 0 0 20px;

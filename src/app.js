@@ -195,7 +195,9 @@ class App extends React.Component {
 				<Header />
 				<Sidebar newRecipe={this.newRecipe} 
 				openBrowse={this.openBrowse} />
-				{mainContent()}
+				<div className='main'>
+					{mainContent()}
+				</div>
 			</div>
 		);
 	};
