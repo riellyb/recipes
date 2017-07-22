@@ -1,20 +1,23 @@
 import React from 'react';
+import Recipes from './recipes.js';
+import Browse from './browse.js';
 import NewRecipe from './new-recipe.js';
 import Search from './search.js';
 import RecipeTable from './recipe-table.js';
+import { Switch, Route } from 'react-router-dom';
 
 export default class Main extends React.Component {
 	render() {
-		if(this.props.newRecipe) { 
-            return (<div><NewRecipe cancel={this.props.closeCreateARecipe} createRecipe={this.props.createRecipe} /></div>);
-        } else { 
-        	return(
-        		<div>
-					<h2>Browse Recipes</h2>
-					<Search doSearch={this.props.doSearch} query={this.props.query}/>
-					<RecipeTable openRecipe={this.props.openRecipe} data={this.props.data} />
-				</div>
-			);
-		}
+		return(
+			<Switch>
+
+		      <Route exact path='/' render={() => (<Browse query={this.props.query}
+						doSearch={this.props.doSearch}
+						openARecipe={this.props.openARecipe}
+						data={this.props.data}  />)} />
+		      <Route path='/recipe' component={Recipes}/>
+		      <Route path='/new-recipe' render={() => (<NewRecipe	      		createRecipe={this.props.createRecipe} />)}/>
+		    </Switch>
+	    );
 	}
 }

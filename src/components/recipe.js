@@ -7,23 +7,26 @@ export default class Recipe extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	    	data: this.props.data,
+	    	id: props.match.params.recipeId,
+	    	recipe: [],
 	    };
 	};
-	componentWillReceiveProps(nextProps) {
-	  this.setState({ data: nextProps.data });  
-	};
+	componentDidMount = () => {
+
+		this.setState({ 
+			recipe: this.props.getRecipe(this.state.id),
+		});
+  	}
 	render() {
 		return (
-
 			<div className="recipe-display container-fluid">
 				<div className="recipe-header">
-					<h1>{this.state.data.name}</h1>
-					<h3>By {this.state.data.author}</h3>
+					<h1>{this.state.recipe.name}</h1>
+					<h3>By {this.state.recipe.author}</h3>
 					<hr />
-					<h4>Category: {this.state.data.category}</h4>
-					<p className="recipe-date">Created: {moment(this.state.data.createdDate).format('MMMM Do YYYY, h:mm a')}</p>
-					<p>Description: {this.state.data.description}</p>
+					<h4>Category: {this.state.recipe.category}</h4>
+					<p className="recipe-date">Created: {moment(this.state.recipe.createdDate).format('MMMM Do YYYY, h:mm a')}</p>
+					<p>Description: {this.state.recipe.description}</p>
 					<div className="recipe-btns">						
 						<button
 							className="btn btn-danger pull-right btn-sm close-recipe"
@@ -37,21 +40,21 @@ export default class Recipe extends React.Component {
 				</div>
 				<div className="recipe-body">
 					<div className="recipe-timing">
-						<p>Prep Time: {this.state.data.prepTime}</p>
-						<p>Cook Time: {this.state.data.cookTime}</p>
+						<p>Prep Time: {this.state.recipe.prepTime}</p>
+						<p>Cook Time: {this.state.recipe.cookTime}</p>
 					</div>
 					<div className='ingredients panel panel-info'>
     					<div className='panel-heading'>Ingredients:</div>
 	        			<div className='panel-body'>
 							<div className="ingredients-list">
-								<IngredientsList ingredients={this.state.data.ingredients} />
+								<IngredientsList ingredients={this.state.recipe.ingredients} />
 							</div>
 						</div>
 					</div>
 					<div className='directions panel panel-success'>
     					<div className='panel-heading'>Directions:</div>
 	        			<div className='panel-body'>
-							{this.state.data.directions}
+							{this.state.recipe.directions}
 						</div>
 					</div>
 				</div>

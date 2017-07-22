@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Sidebar extends React.Component {
 	render() {
 		return (
 			<aside className="sidebar">
 				<h2>Menu</h2>
-				<button onClick={this.props.openBrowse} className="btn btn-primary">Browse Recipes</button>
-				<button onClick={this.props.newRecipe} className="btn btn-primary">New Recipe</button>
+				<button className="btn btn-primary"><Link to='/'>Browse Recipes</Link></button>
+				<button className="btn btn-primary"><Link to='/new-recipe'>New Recipe</Link></button>
 			</aside>
 		);
 	}
