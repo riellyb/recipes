@@ -10,7 +10,7 @@ export default class RecipeTable extends React.Component {
         let rows = [];
         this.props.data.forEach( (recipe) => {
             let path = '/recipe/' + recipe._id;
-            rows.push(<tr key={recipe.recipeId}>
+            rows.push(<tr key={recipe._id}>
                         
                         <td>
                             <div className="link recipe-name"><Link to={path}>{recipe.name}</Link></div>

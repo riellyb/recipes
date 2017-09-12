@@ -7,6 +7,9 @@ import RecipeTable from './recipe-table.js';
 import { Switch, Route } from 'react-router-dom';
 
 export default class Main extends React.Component {
+	constructor(props) {
+		super(props);
+	}
 	render() {
 		return(
 			<Switch>
@@ -15,8 +18,11 @@ export default class Main extends React.Component {
 						doSearch={this.props.doSearch}
 						openARecipe={this.props.openARecipe}
 						data={this.props.data}  />)} />
-		      <Route path='/recipe' component={Recipes}/>
-		      <Route path='/new-recipe' render={() => (<NewRecipe	      		createRecipe={this.props.createRecipe} />)}/>
+		      <Route path='/recipe' render={(props) => (<Recipes 
+		      			updateRecipe={this.props.updateRecipe}
+						getRecipe={this.props.getRecipe} {...props} />)} />
+		      <Route path='/new-recipe' render={() => (<NewRecipe 
+		      			createRecipe={this.props.createRecipe} />)}/>
 		    </Switch>
 	    );
 	}

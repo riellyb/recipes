@@ -3,10 +3,8 @@ import Header from './header.js';
 import Sidebar from './sidebar.js';
 import Main from './main.js';
 import axios from 'axios';
-import Recipe from './recipe.js';
-import UpdateRecipe from './update-recipe.js';
-import ReactDOM from 'react-dom';
 import { Switch, Route } from 'react-router-dom';
+
 require('../scss/style.scss');
 
 
@@ -55,9 +53,10 @@ export default class App extends React.Component {
 		axios.post('http://localhost:3000/recipes', params)
       		.then(res => {
       			return;
+      			getRecipes();
       		});	
 	};
-	//send new recipe data to api
+	//Update recipe data with api
 	updateRecipe = (params) => {
 		axios.put('http://localhost:3000/recipes/' + params.id, params)
       		.then(res => {
@@ -66,7 +65,7 @@ export default class App extends React.Component {
       		});	
 	};
 	//open a recipe
-	openARecipe = (recipeId) => {
+	getRecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
         		return res;
@@ -88,10 +87,11 @@ export default class App extends React.Component {
 				<div className="main">
 					<Main data={this.state.filteredData}
 						query={this.state.query}
+						doSearch={this.doSearch}
 						getRecipes={this.getRecipes}
 						createRecipe={this.createRecipe}
 						updateRecipe={this.updateRecipe}
-						openARecipe={this.openARecipe}
+						getRecipe={this.getRecipe}
 						deleteARecipe={this.deleteARecipe} />
 				</div>
 			</div>

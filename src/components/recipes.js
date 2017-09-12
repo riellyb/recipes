@@ -6,16 +6,16 @@ import { Switch, Route } from 'react-router-dom';
 
 
 export default class Recipes extends React.Component {
+	constructor(props) {
+		super(props);
+	}
 	render() {
 		return (
 			<Switch>
-
-		      <Route exact path='/recipe/:recipeId' render={() => (<Recipe />)} />
-		      <Route path='/recipe/:recipeId/update' render={() => (<UpdateRecipe
+		      <Route exact path='/recipe/:recipeId' render={(props) => (<Recipe getRecipe={this.props.getRecipe} edit={this.props.updateRecipe} {...props} />)} />
+		      <Route path='/recipe/:recipeId/update' render={(props) => (<UpdateRecipe
 		            			data={this.props.data}
-		            			updateRecipe={this.props.updateRecipe} />)} />
-		      <Route path='/new-recipe' render={() => (<NewRecipe
-		      		createRecipe={this.props.createRecipe} />)}/>
+		            			updateRecipe={this.props.updateRecipe} {...props} />)} />
 		    </Switch>
 		);
 

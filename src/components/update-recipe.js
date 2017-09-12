@@ -137,7 +137,8 @@ export default class UpdateRecipe extends React.Component {
                 				form="new-recipe"
                 				value="Submit"
                         title="Update your recipe"
-                				className="btn btn-success float-right">Update {this.state.name} Recipe</button>
+                				className="btn btn-success float-right
+                        onClick={this.props.updateRecipe}">Update {this.state.name} Recipe</button>
               				<button
       				          className="btn btn-warning float-left"
                         title="Clear the recipe form"
