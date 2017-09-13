@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import IngredientsList from './ingredients-list.js';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export default class Recipe extends React.Component {
@@ -10,19 +12,31 @@ export default class Recipe extends React.Component {
 			recipe: [],
 			loading: true
 		};
+		this.id = this.props.match.params.recipeId;
+        this.path = '/recipe/' + this.id + '/update';
 	};
-	componentDidMount = () => {
-		let id = this.props.match.params.recipeId;
-		this.loadRecipe(id);
-		
-  	}
-  	loadRecipe = (id) => {
+	loadRecipe = (id) => {
   		
-		let recipe = this.props.getRecipe(id);
-		this.setState({ 
-			recipe,
-		}, this.setState({loading: false}));
-  	}
+		self = this;
+		axios.get('http://localhost:3000/recipes/' + id)
+      		.then(res => {
+        		let recipe = res.data;
+        		self.setState({ 
+					recipe,
+				}, self.setState({loading: false}));
+		    });
+		
+  	};
+	componentDidMount = () => {
+		console.log(this.id);
+		this.loadRecipe(this.id);
+		
+  	};
+  	//get a recipe from the api
+	getRecipe = (recipeId) => {
+		
+	};
+  	
 	render() {
 		
 			if(this.state.loading) {
@@ -46,7 +60,7 @@ export default class Recipe extends React.Component {
 										title="Close this Recipe">Close</button>
 									<button
 										className="btn btn-success pull-right btn-sm edit-recipe"
-										title="Edit this Recipe"><Link to='/recipe/'{this.state.recipe._id}/update'>Edit</Link></button>
+										title="Edit this Recipe"><Link to={this.path}>Edit</Link></button>
 								</div>
 							</div>
 							<div className="recipe-body">

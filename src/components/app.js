@@ -64,11 +64,11 @@ export default class App extends React.Component {
 
       		});	
 	};
-	//open a recipe
+	//get a recipe from the api
 	getRecipe = (recipeId) => {
 		axios.get('http://localhost:3000/recipes/' + recipeId)
       		.then(res => {
-        		return res;
+        		return res.data;
       		});
 	};
 	//tell api to delete recipe
