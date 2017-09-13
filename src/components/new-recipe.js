@@ -1,6 +1,7 @@
 import React from 'react';
 import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
+import { Link } from 'react-router-dom';
 
 export default class NewRecipe extends React.Component {
     constructor() {
@@ -134,7 +135,7 @@ export default class NewRecipe extends React.Component {
                     <button
                     className="btn btn-danger float-left"
                     title="Cancel"
-                    onClick={this.props.cancel}>Cancel</button>
+                    ><Link to='/'>Cancel</Link></button>
 				    </div>
 				</form>
 			</section>

@@ -18,7 +18,7 @@ export default class Main extends React.Component {
 						doSearch={this.props.doSearch}
 						openARecipe={this.props.openARecipe}
 						data={this.props.data}  />)} />
-		      <Route path='/recipe' render={(props) => (<Recipes 
+		      <Route path='/recipe' render={(props) => (<Recipes
 		      			updateRecipe={this.props.updateRecipe}
 						getRecipe={this.props.getRecipe} {...props} />)} />
 		      <Route path='/new-recipe' render={() => (<NewRecipe 

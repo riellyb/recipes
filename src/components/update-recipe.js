@@ -6,7 +6,7 @@ export default class UpdateRecipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.data._id || '',
+            id: this.props.match.params.recipeId || '';
             name: this.props.data.name || '',
             category: this.props.data.category || '',
             description: this.props.data.description || '',
