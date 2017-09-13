@@ -23,19 +23,15 @@ export default class Recipe extends React.Component {
         		let recipe = res.data;
         		self.setState({ 
 					recipe,
-				}, self.setState({loading: false}));
+				}, () => {
+					self.setState({loading: false});
+				});
 		    });
 		
   	};
 	componentDidMount = () => {
-		console.log(this.id);
 		this.loadRecipe(this.id);
-		
   	};
-  	//get a recipe from the api
-	getRecipe = (recipeId) => {
-		
-	};
   	
 	render() {
 		
@@ -54,13 +50,12 @@ export default class Recipe extends React.Component {
 								<p className="recipe-date">Created: {moment(this.state.recipe.createdDate).format('MMMM Do YYYY, h:mm a')}</p>
 								<p>Description: {this.state.recipe.description}</p>
 								<div className="recipe-btns">						
-									<button
+									<Link to='/'><button
 										className="btn btn-danger pull-right btn-sm close-recipe"
-										onClick={this.props.close}
-										title="Close this Recipe">Close</button>
-									<button
+										title="Close this Recipe">Close</button></Link>
+									<Link to={this.path}><button
 										className="btn btn-success pull-right btn-sm edit-recipe"
-										title="Edit this Recipe"><Link to={this.path}>Edit</Link></button>
+										title="Edit this Recipe">Edit</button></Link>
 								</div>
 							</div>
 							<div className="recipe-body">

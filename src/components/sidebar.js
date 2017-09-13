@@ -6,8 +6,8 @@ export default class Sidebar extends React.Component {
 		return (
 			<aside className="sidebar">
 				<h2>Menu</h2>
-				<button className="btn btn-primary"><Link to='/'>Browse Recipes</Link></button>
-				<button className="btn btn-primary"><Link to='/new-recipe'>New Recipe</Link></button>
+				<Link to='/'><button className="btn btn-primary">Browse Recipes</button></Link>
+				<Link to='/new-recipe'><button className="btn btn-primary">New Recipe</button></Link>
 			</aside>
 		);
 	}

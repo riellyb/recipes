@@ -132,10 +132,10 @@ export default class NewRecipe extends React.Component {
 				          className="btn btn-warning float-left"
                     title="Clear the recipe form"
   				          onClick={this.handleClearForm}>Clear form</button>
-                    <button
+                    <Link to='/'><button
                     className="btn btn-danger float-left"
                     title="Cancel"
-                    ><Link to='/'>Cancel</Link></button>
+                    >Cancel</button></Link>
 				    </div>
 				</form>
 			</section>
