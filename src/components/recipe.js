@@ -12,9 +12,11 @@ export default class Recipe extends React.Component {
 			recipe: [],
 			loading: true
 		};
+		//get id from URL parameter
 		this.id = this.props.match.params.recipeId;
         this.path = '/recipe/' + this.id + '/update';
 	};
+	//Get Recipe from API and display
 	loadRecipe = (id) => {
   		
 		self = this;

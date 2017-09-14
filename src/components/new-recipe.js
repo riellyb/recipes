@@ -18,9 +18,11 @@ export default class NewRecipe extends React.Component {
             confirmation: false,
         };
     };
+    //Event handler for all inputs
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };
+    //Callback for Ingredients Child Component
     updateIngredients = (ingredients) => {
     	this.setState({
             ingredients
@@ -31,8 +33,8 @@ export default class NewRecipe extends React.Component {
             category
         });
     };
+    //Submit new Recipe data to database and display confirmation message
     handleSubmit = (event) => {
-        //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         
         const params = {
@@ -52,6 +54,7 @@ export default class NewRecipe extends React.Component {
             confirmation: true,
         });
     };
+    //Clears form of data
     handleClearForm = (event) => {
         event.preventDefault();
         this.setState({

@@ -13,16 +13,19 @@ export default class Main extends React.Component {
 	render() {
 		return(
 			<Switch>
-
-		      <Route exact path='/' render={() => (<Browse query={this.props.query}
-						doSearch={this.props.doSearch}
-						openARecipe={this.props.openARecipe}
-						data={this.props.data}  />)} />
-		      <Route path='/recipe' render={(props) => (<Recipes
-		      			updateRecipe={this.props.updateRecipe}
-						getRecipe={this.props.getRecipe} {...props} />)} />
-		      <Route path='/new-recipe' render={() => (<NewRecipe 
-		      			createRecipe={this.props.createRecipe} />)}/>
+				//Search and browse recipes
+		      	<Route exact path='/' render={() => (<Browse query={this.props.query}
+					doSearch={this.props.doSearch}
+					openARecipe={this.props.openARecipe}
+					data={this.props.data}  />)} />
+				//View Recipe and Update recipe
+		      	<Route path='/recipe' render={(props) => (<Recipes
+		      		updateRecipe={this.props.updateRecipe}
+					getRecipe={this.props.getRecipe}
+					deleteRecipe={this.props.deleteRecipe} {...props} />)} />
+				//Create a new Recipe
+		      	<Route path='/new-recipe' render={() => (<NewRecipe 
+		      		createRecipe={this.props.createRecipe} />)}/>
 		    </Switch>
 	    );
 	}

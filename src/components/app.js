@@ -23,7 +23,7 @@ export default class App extends React.Component {
   	}
 	//filter browse table based on user input
 	doSearch = (queryText) => {
-        //get query result
+        //get all recipes
         let queryResult = this.state.recipes;
         queryResult = queryResult.filter(function(recipe){
         	if(recipe.name) {
@@ -64,12 +64,10 @@ export default class App extends React.Component {
 	getRecipe = (recipeId) => {
 		return axios.get('http://localhost:3000/recipes/' + recipeId);
 	};
-	//tell api to delete recipe
-	deleteARecipe = (recipeId) => {
-		axios.delete('http://localhost:3000/recipes/' + recipeId)
-      		.then(res => {
-      			return;
-      		});
+	//tell api to delete recipe, returns a promise
+	deleteRecipe = (recipeId) => {
+		return axios.delete('http://localhost:3000/recipes/' + recipeId);
+      		
 	};
 	render() {
     	return(
@@ -85,7 +83,7 @@ export default class App extends React.Component {
 						createRecipe={this.createRecipe}
 						updateRecipe={this.updateRecipe}
 						getRecipe={this.getRecipe}
-						deleteARecipe={this.deleteARecipe} />
+						deleteRecipe={this.deleteRecipe} />
 				</div>
 			</div>
 		);

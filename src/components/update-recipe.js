@@ -9,6 +9,7 @@ export default class UpdateRecipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            //set id from URL parameter
             id: this.props.match.params.recipeId,
             deleted: false,
             name: '',
@@ -24,9 +25,11 @@ export default class UpdateRecipe extends React.Component {
         };
         this.path = '/recipe/' + this.state.id;
     };
+    //Event handler for all inputs
     handleChange = (event) => {
       this.setState({ [event.target.name]: event.target.value });
     };
+    //Callback for Ingredients Child Component
     updateIngredients = (ingredients) => {
     	this.setState({
             ingredients
@@ -37,8 +40,8 @@ export default class UpdateRecipe extends React.Component {
             category
         });
     };
+    //Send updated data to api and redirect to the updated recipe
     handleSubmit = (event) => {
-        //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         
         const params = {
@@ -76,19 +79,23 @@ export default class UpdateRecipe extends React.Component {
         });
       	this.child.clear();
     };
+    //Tell API to delete recipe, then clear Form
     deleteRecipe = () => {      
       if(confirm('Are you sure you want to permanently delete this recipe?')) {
-        this.props.deleteARecipe(this.state.id);
-        this.setState({
-            deleted: true,
+        this.props.deleteRecipe(this.state.id).then(res => {
+          this.setState({
+              deleted: true,
+          });
+          this.handleClearForm(event);
         });
-        this.handleClearForm(event);
+       
       }
     };
+    //load recipe from api and display
     loadRecipe = (id) => {
       
       self = this;
-      axios.get('http://localhost:3000/recipes/' + id)
+      this.props.getRecipe(id)
             .then(res => {
               self.setState({ 
                 id: res.data._id,

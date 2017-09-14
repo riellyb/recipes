@@ -13,7 +13,7 @@ export default class RecipeTable extends React.Component {
             rows.push(<tr key={recipe._id}>
                         
                         <td>
-                            <div className="link recipe-name"><Link to={path}>{recipe.name}</Link></div>
+                            <Link to={path}><div className="link recipe-name">{recipe.name}</div></Link>
                         </td>
                         <td>{recipe.author}</td>
                         <td>{recipe.category}</td>

@@ -12,10 +12,13 @@ export default class Recipes extends React.Component {
 	render() {
 		return (
 			<Switch>
-		      <Route exact path='/recipe/:recipeId' render={(props) => (<Recipe getRecipe={this.props.getRecipe} edit={this.props.updateRecipe} {...props} />)} />
-		      <Route path='/recipe/:recipeId/update' render={(props) => (<UpdateRecipe
-		            			data={this.props.data}
-		            			updateRecipe={this.props.updateRecipe} {...props} />)} />
+				//Display Recipe
+		      	<Route exact path='/recipe/:recipeId' render={(props) => (<Recipe getRecipe={this.props.getRecipe} edit={this.props.updateRecipe} {...props} />)} />
+		      	//Display update Recipe form
+		      	<Route path='/recipe/:recipeId/update' render={(props) => (<UpdateRecipe
+	        			getRecipe={this.props.getRecipe}
+	        			updateRecipe={this.props.updateRecipe}
+	        			deleteRecipe={this.props.deleteRecipe} {...props} />)} />
 		    </Switch>
 		);
 
