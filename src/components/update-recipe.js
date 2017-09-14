@@ -3,7 +3,7 @@ import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { browserHistory } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 export default class UpdateRecipe extends React.Component {
     constructor(props) {
@@ -20,6 +20,7 @@ export default class UpdateRecipe extends React.Component {
             prepTime: '',
             cookTime: '',
             loading: true,
+            redirect: false,
         };
         this.path = '/recipe/' + this.state.id;
     };
@@ -53,7 +54,9 @@ export default class UpdateRecipe extends React.Component {
         };
         
         this.props.updateRecipe(params);
-      	this.context.router.transitionTo(this.path);
+        this.setState({
+          redirect: true,
+        });
     };
     handleClearForm = (event) => {
         event.preventDefault();
@@ -105,7 +108,10 @@ export default class UpdateRecipe extends React.Component {
       
     };
     render() {
-          if(this.state.loading) {
+      if (this.state.redirect) {
+        return <Redirect push to={this.path} />;
+      }
+      if(this.state.loading) {
         return (
           <div>Recipe Loading....</div>
         );
