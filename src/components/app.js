@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
 	componentDidMount = () => {
 		this.getRecipes();
-  	}
+  	};
 	//filter browse table based on user input
 	doSearch = (queryText) => {
         //get all recipes

@@ -9,7 +9,9 @@ export default class Browse extends React.Component {
     		<div>
 				<h2>Browse Recipes</h2>
 				<Search doSearch={this.props.doSearch} query={this.props.query}/>
-				<RecipeTable openRecipe={this.props.openRecipe} data={this.props.data} />
+				<RecipeTable getRecipes={this.props.getRecipes}
+					 openRecipe={this.props.openRecipe} 
+					 data={this.props.data} />
 			</div>
 		);
 	}

@@ -5,6 +5,9 @@ export default class RecipeTable extends React.Component {
     constructor(props) {
         super(props);
     };
+    componentDidMount = () => {
+        this.props.getRecipes();
+    };
     render() {
         //making the rows to display
         let rows = [];

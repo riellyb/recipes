@@ -15,8 +15,8 @@ export default class Main extends React.Component {
 			<Switch>
 				//Search and browse recipes
 		      	<Route exact path='/' render={() => (<Browse query={this.props.query}
+		      		getRecipes={this.props.getRecipes}
 					doSearch={this.props.doSearch}
-					openARecipe={this.props.openARecipe}
 					data={this.props.data}  />)} />
 				//View Recipe and Update recipe
 		      	<Route path='/recipe' render={(props) => (<Recipes
