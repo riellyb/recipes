@@ -2,6 +2,8 @@ import React from 'react';
 import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { browserHistory } from 'react-router-dom';
 
 export default class UpdateRecipe extends React.Component {
     constructor(props) {
@@ -19,6 +21,7 @@ export default class UpdateRecipe extends React.Component {
             cookTime: '',
             loading: true,
         };
+        this.path = '/recipe/' + this.state.id;
     };
     handleChange = (event) => {
       this.setState({ [event.target.name]: event.target.value });
@@ -50,7 +53,7 @@ export default class UpdateRecipe extends React.Component {
         };
         
         this.props.updateRecipe(params);
-      	this.handleClearForm(event);
+      	this.context.router.transitionTo(this.path);
     };
     handleClearForm = (event) => {
         event.preventDefault();
@@ -81,20 +84,20 @@ export default class UpdateRecipe extends React.Component {
       self = this;
       axios.get('http://localhost:3000/recipes/' + id)
             .then(res => {
-              let recipe = res.data;
-              console.log(res.data);
               self.setState({ 
-                'id': res.data.id,
-                'name': res.data.name,
-                'category': res.data.category,
-                'description': res.data.description,
-                'ingredients': res.data.ingredients,
-                'directions': res.data.directions,
-                'author': res.data.author,
-                'prepTime': res.data.prepTime,
-                'cookTime': res.data.cookTime,
-              }, self.setState({loading: false}));
-      });
+                id: res.data._id,
+                name: res.data.name,
+                category: res.data.category,
+                description: res.data.description,
+                ingredients: res.data.ingredients,
+                directions: res.data.directions,
+                author: res.data.author,
+                prepTime: res.data.prepTime,
+                cookTime: res.data.cookTime,
+              }, () => {
+                self.setState({loading: false});
+              });
+            });
       
     };
     componentDidMount = () => {
@@ -109,17 +112,16 @@ export default class UpdateRecipe extends React.Component {
       } else {
         return(
           <section className="update-recipe">
-    				<h2>Update {this.state.recipe.name} Recipe</h2>
+    				<h2>Update {this.state.name} Recipe</h2>
             <div className="recipe-btns">           
-                <button
+                <Link to={this.path}><button
                   className="btn btn-danger pull-right btn-sm close-recipe"
-                  onClick={this.props.close}
-                  title="Close this Recipe">x</button>
+                  title="Close this Recipe">x</button></Link>
             </div>
     				<form className="container-fluid" onSubmit={this.handleSubmit} id="new-recipe">
     					<div className="form-group row">
     						<input className="form-control"
-                      value={this.state.recipe.name}
+                      value={this.state.name}
               				onChange={this.handleChange}
               				type="text" name="name"
                       placeholder="Name of Recipe"/>
@@ -127,24 +129,24 @@ export default class UpdateRecipe extends React.Component {
               			<CategorySelect value={this.state.category} updateCategory={this.updateCategory} />
               			<div className="form-group row">
                   <input className="form-control"
-                        value={this.state.recipe.description}
+                        value={this.state.description}
                         onChange={this.handleChange}
                         type="text" name="description"
                         placeholder="Description"/>
                 </div>
                     <div className="form-group row">
     						<input className="form-control"
-                      value={this.state.recipe.author}
+                      value={this.state.author}
               				onChange={this.handleChange}
               				type="text" name="author"
                       placeholder="Author (Your Name)"/>
               			</div>
-              			<Ingredients value={this.state.recipe.ingredients}
+              			<Ingredients value={this.state.ingredients}
                       onRef={ref => (this.child = ref)}
               				updateIngredients={this.updateIngredients} />
               			<div className="form-group row">
               				<textarea className="directions-text form-control"
-    	          				value={this.state.recipe.directions}
+    	          				value={this.state.directions}
     	          				onChange={this.handleChange}
     	          				type="text"
     	          				name="directions"
@@ -152,14 +154,14 @@ export default class UpdateRecipe extends React.Component {
               			</div>
               			<div className="form-group row">
     						<input className="form-control"
-                    value={this.state.recipe.prepTime}
+                    value={this.state.prepTime}
             				onChange={this.handleChange}
             				type="text" name="prepTime"
                     placeholder="Prep Time (hours and minutes)"/>
               			</div>
               			<div className="form-group row">
     						<input className="form-control"
-                    value={this.state.recipe.cookTime}
+                    value={this.state.cookTime}
             				onChange={this.handleChange}
             				type="text" name="cookTime"
                     placeholder="Cook Time (hours and minutes)"/>
@@ -171,7 +173,7 @@ export default class UpdateRecipe extends React.Component {
                 				value="Submit"
                         title="Update your recipe"
                 				className="btn btn-success float-right
-                        onClick={this.props.updateRecipe}">Update {this.state.recipe.name} Recipe</button>
+                        onClick={this.props.updateRecipe}">Update {this.state.name} Recipe</button>
               				<button
       				          className="btn btn-warning float-left"
                         title="Clear the recipe form"
