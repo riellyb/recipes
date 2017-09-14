@@ -53,10 +53,13 @@ export default class UpdateRecipe extends React.Component {
         	'cookTime': this.state.cookTime
         };
         
-        this.props.updateRecipe(params);
-        this.setState({
-          redirect: true,
+        this.props.updateRecipe(params).then(res => {
+            this.setState({
+            redirect: true,
+          });
         });
+        
+        
     };
     handleClearForm = (event) => {
         event.preventDefault();

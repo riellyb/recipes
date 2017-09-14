@@ -56,20 +56,13 @@ export default class App extends React.Component {
       			getRecipes();
       		});	
 	};
-	//Update recipe data with api
+	//Update recipe data with api, returns a promise
 	updateRecipe = (params) => {
-		axios.put('http://localhost:3000/recipes/' + params.id, params)
-      		.then(res => {
-      			return;
-
-      		});	
+		return axios.put('http://localhost:3000/recipes/' + params.id, params);	
 	};
-	//get a recipe from the api
+	//get a recipe from the api, returns a promise
 	getRecipe = (recipeId) => {
-		axios.get('http://localhost:3000/recipes/' + recipeId)
-      		.then(res => {
-        		return res.data;
-      		});
+		return axios.get('http://localhost:3000/recipes/' + recipeId);
 	};
 	//tell api to delete recipe
 	deleteARecipe = (recipeId) => {

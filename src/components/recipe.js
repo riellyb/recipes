@@ -18,7 +18,7 @@ export default class Recipe extends React.Component {
 	loadRecipe = (id) => {
   		
 		self = this;
-		axios.get('http://localhost:3000/recipes/' + id)
+		this.props.getRecipe(id)
       		.then(res => {
         		let recipe = res.data;
         		self.setState({ 
