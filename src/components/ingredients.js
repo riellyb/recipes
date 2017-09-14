@@ -6,12 +6,13 @@ export default class Ingredients extends React.Component {
         let value = this.props.value ? this.props.value : [];
         let count = this.props.value ? this.props.value.length : 1;
         this.state = { value, count };
+
     };
     componentDidMount = () => {
-        this.props.onRef(this)
+        this.props.onRef(this);
     };
     componentWillUnmount = () => {
-        this.props.onRef(undefined)
+        this.props.onRef(undefined);
     };
     //clear all inputs and revert to 1
     clear = () => {
@@ -26,7 +27,7 @@ export default class Ingredients extends React.Component {
     };
     //add an ingredient
     addClick = () => {
-        this.setState({ count: this.state.count + 1 });
+        this.setState({ count: this.state.count + 1 }, () => this.props.updateIngredients(this.state.value));
     };
     //remove an ingredient
     removeClick = (i) => {
@@ -35,7 +36,7 @@ export default class Ingredients extends React.Component {
         this.setState({
             count: this.state.count - 1,
             value
-        })
+        }, () => this.props.updateIngredients(this.state.value))
     };
     //creates the correct # of ingredient inputs
     createUI = () => {

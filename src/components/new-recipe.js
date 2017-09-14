@@ -1,6 +1,7 @@
 import React from 'react';
 import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
+import { Link } from 'react-router-dom';
 
 export default class NewRecipe extends React.Component {
     constructor() {
@@ -17,9 +18,11 @@ export default class NewRecipe extends React.Component {
             confirmation: false,
         };
     };
+    //Event handler for all inputs
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };
+    //Callback for Ingredients Child Component
     updateIngredients = (ingredients) => {
     	this.setState({
             ingredients
@@ -30,8 +33,8 @@ export default class NewRecipe extends React.Component {
             category
         });
     };
+    //Submit new Recipe data to database and display confirmation message
     handleSubmit = (event) => {
-        //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         
         const params = {
@@ -51,6 +54,7 @@ export default class NewRecipe extends React.Component {
             confirmation: true,
         });
     };
+    //Clears form of data
     handleClearForm = (event) => {
         event.preventDefault();
         this.setState({
@@ -131,10 +135,10 @@ export default class NewRecipe extends React.Component {
 				          className="btn btn-warning float-left"
                     title="Clear the recipe form"
   				          onClick={this.handleClearForm}>Clear form</button>
-                    <button
+                    <Link to='/'><button
                     className="btn btn-danger float-left"
                     title="Cancel"
-                    onClick={this.props.cancel}>Cancel</button>
+                    >Cancel</button></Link>
 				    </div>
 				</form>
 			</section>

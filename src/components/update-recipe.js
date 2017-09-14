@@ -1,26 +1,35 @@
 import React from 'react';
 import CategorySelect from './category-select.js';
 import Ingredients from './ingredients.js';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 export default class UpdateRecipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.data._id || '',
-            name: this.props.data.name || '',
-            category: this.props.data.category || '',
-            description: this.props.data.description || '',
-            ingredients: this.props.data.ingredients || [],
-            directions: this.props.data.directions || '',
-            author: this.props.data.author || '',
-            prepTime: this.props.data.prepTime || '',
-            cookTime: this.props.data.cookTime || '',
+            //set id from URL parameter
+            id: this.props.match.params.recipeId,
             deleted: false,
+            name: '',
+            category: '',
+            description: '',
+            ingredients: [],
+            directions: '',
+            author: '',
+            prepTime: '',
+            cookTime: '',
+            loading: true,
+            redirect: false,
         };
+        this.path = '/recipe/' + this.state.id;
     };
+    //Event handler for all inputs
     handleChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
+      this.setState({ [event.target.name]: event.target.value });
     };
+    //Callback for Ingredients Child Component
     updateIngredients = (ingredients) => {
     	this.setState({
             ingredients
@@ -31,8 +40,8 @@ export default class UpdateRecipe extends React.Component {
             category
         });
     };
+    //Send updated data to api and redirect to the updated recipe
     handleSubmit = (event) => {
-        //we don't want the form to submit, so we prevent the default behavior
         event.preventDefault();
         
         const params = {
@@ -44,44 +53,86 @@ export default class UpdateRecipe extends React.Component {
         	'directions': this.state.directions,
         	'author': this.state.author,
         	'prepTime': this.state.prepTime,
-        	'cookTime': this.state.cookTime,
+        	'cookTime': this.state.cookTime
         };
         
-        this.props.updateRecipe(params);
-      	this.handleClearForm(event);
+        this.props.updateRecipe(params).then(res => {
+            this.setState({
+            redirect: true,
+          });
+        });
+        
+        
     };
     handleClearForm = (event) => {
         event.preventDefault();
         this.setState({
-            name: '',
-            category: '',
-            description: '',
-            ingredients: [],
-            directions: [],
-            author:'',
-            prepTime: '',
-            cookTime: '',
+          id: '',
+          name: '',
+          category: '',
+          description: '',
+          ingredients: [],
+          directions: '',
+          author: '',
+          prepTime: '',
+          cookTime: '',
         });
       	this.child.clear();
     };
+    //Tell API to delete recipe, then clear Form
     deleteRecipe = () => {      
       if(confirm('Are you sure you want to permanently delete this recipe?')) {
-        this.props.deleteARecipe(this.state.id);
-        this.setState({
-            deleted: true,
+        this.props.deleteRecipe(this.state.id).then(res => {
+          this.setState({
+              deleted: true,
+          });
+          this.handleClearForm(event);
         });
-        this.handleClearForm(event);
+       
       }
     };
+    //load recipe from api and display
+    loadRecipe = (id) => {
+      
+      self = this;
+      this.props.getRecipe(id)
+            .then(res => {
+              self.setState({ 
+                id: res.data._id,
+                name: res.data.name,
+                category: res.data.category,
+                description: res.data.description,
+                ingredients: res.data.ingredients,
+                directions: res.data.directions,
+                author: res.data.author,
+                prepTime: res.data.prepTime,
+                cookTime: res.data.cookTime,
+              }, () => {
+                self.setState({loading: false});
+              });
+            });
+      
+    };
+    componentDidMount = () => {
+      this.loadRecipe(this.state.id);
+      
+    };
     render() {
+      if (this.state.redirect) {
+        return <Redirect push to={this.path} />;
+      }
+      if(this.state.loading) {
         return (
+          <div>Recipe Loading....</div>
+        );
+      } else {
+        return(
           <section className="update-recipe">
     				<h2>Update {this.state.name} Recipe</h2>
             <div className="recipe-btns">           
-                <button
+                <Link to={this.path}><button
                   className="btn btn-danger pull-right btn-sm close-recipe"
-                  onClick={this.props.close}
-                  title="Close this Recipe">x</button>
+                  title="Close this Recipe">x</button></Link>
             </div>
     				<form className="container-fluid" onSubmit={this.handleSubmit} id="new-recipe">
     					<div className="form-group row">
@@ -137,7 +188,8 @@ export default class UpdateRecipe extends React.Component {
                 				form="new-recipe"
                 				value="Submit"
                         title="Update your recipe"
-                				className="btn btn-success float-right">Update {this.state.name} Recipe</button>
+                				className="btn btn-success float-right
+                        onClick={this.props.updateRecipe}">Update {this.state.name} Recipe</button>
               				<button
       				          className="btn btn-warning float-left"
                         title="Clear the recipe form"
@@ -149,6 +201,8 @@ export default class UpdateRecipe extends React.Component {
     				    </div>
     				</form>
 			</section>
+    
         );
+      }
     }
 }

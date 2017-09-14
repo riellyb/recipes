@@ -7,6 +7,7 @@ export default class Search extends React.Component {
 	    	query: '',
 	    };
 	};
+	//Set query to value of input and filter the recipe table
 	doSearch = (e) => {
 		this.setState({
       		query: e.target.value,
