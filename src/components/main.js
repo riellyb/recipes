@@ -27,6 +27,7 @@ export default class Main extends React.Component {
 		      	<Route path='/new-recipe' render={() => (<NewRecipe 
 		      		createRecipe={this.props.createRecipe} />)}/>
 		      	<Route path='/signup' render={() => (<Signup />)}/>
+		      	<Route path='/login' render={() => (<Login />)}/>
 		    </Switch>
 	    );
 	}
