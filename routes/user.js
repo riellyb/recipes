@@ -9,8 +9,8 @@ module.exports = function(app) {
 
 	// Define the login route
 	router.post('/login',
-	  passport.authenticate('local', { successRedirect: '/',
-	                                   failureRedirect: '/login',
+	  passport.authenticate('local-login', { successRedirect: '/',
+	                                   failureRedirect: '/',
 	                                   failureFlash: true })
 	);
 
