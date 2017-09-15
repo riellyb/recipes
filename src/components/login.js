@@ -4,35 +4,29 @@ import { Link } from 'react-router-dom';
 export default class Login extends React.Component {
 	render() {
 		return (
-			<div class="container">
+			<div className="container">
 
-				<div class="col-sm-6 col-sm-offset-3">
+				<div className="col-sm-6 col-sm-offset-3">
 
-				    <h1><span class="fa fa-sign-in"></span> Login</h1>
+				    <h1><span className="fa fa-sign-in"></span> Login</h1>
 
-				    <!-- show any messages that come back with authentication -->
-				    <% if (message.length > 0) { %>
-				        <div class="alert alert-danger"><%= message %></div>
-				    <% } %>
-
-				    <!-- LOGIN FORM -->
 				    <form action="/login" method="post">
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Email</label>
-				            <input type="text" class="form-control" name="email">
+				            <input type="text" className="form-control" name="email" />
 				        </div>
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Password</label>
-				            <input type="password" class="form-control" name="password">
+				            <input type="password" className="form-control" name="password" />
 				        </div>
 
-				        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+				        <button type="submit" className="btn btn-warning btn-lg">Login</button>
 				    </form>
 
-				    <hr>
+				    <hr />
 
-				    <p>Need an account? <a href="/signup">Signup</a></p>
-				    <p>Or go <a href="/">home</a>.</p>
+				    <p>Need an account? <Link to="/signup">Signup</Link></p>
+				    <p>Or go <Link to="/">home</Link>.</p>
 
 				</div>
 

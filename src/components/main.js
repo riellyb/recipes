@@ -4,6 +4,8 @@ import Browse from './browse.js';
 import NewRecipe from './new-recipe.js';
 import Search from './search.js';
 import RecipeTable from './recipe-table.js';
+import Login from './login.js';
+import Signup from './signup.js';
 import { Switch, Route } from 'react-router-dom';
 
 export default class Main extends React.Component {

@@ -7,7 +7,7 @@ var express = require('express'),
   bodyParser = require('body-parser');
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  User = require('/api/models/user'),
+  User = require('./api/models/user'),
   passportConfig = require('./config/passport')(passport);
 
 //Connect to DB via Mongoose
@@ -33,9 +33,9 @@ api(app);
 var routes = require('./routes/routes');
 routes(app);
 
-//login routes
-var login = require('./routes/login');
-login(app);
+//user auth routes
+var user = require('./routes/user');
+user(app);
 
 //404 handling
 app.use(function(req, res) {
