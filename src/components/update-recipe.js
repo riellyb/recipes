@@ -57,9 +57,10 @@ export default class UpdateRecipe extends React.Component {
         };
         
         this.props.updateRecipe(params).then(res => {
+            this.handleClearForm(event);
             this.setState({
-            redirect: true,
-          });
+              redirect: true,
+            });
         });
         
         
@@ -83,10 +84,11 @@ export default class UpdateRecipe extends React.Component {
     deleteRecipe = () => {      
       if(confirm('Are you sure you want to permanently delete this recipe?')) {
         this.props.deleteRecipe(this.state.id).then(res => {
+          
+          this.handleClearForm(event);
           this.setState({
               deleted: true,
           });
-          this.handleClearForm(event);
         });
        
       }
@@ -120,6 +122,9 @@ export default class UpdateRecipe extends React.Component {
     render() {
       if (this.state.redirect) {
         return <Redirect push to={this.path} />;
+      }
+      if (this.state.deleted) {
+        return <Redirect push to='/' />;
       }
       if(this.state.loading) {
         return (
