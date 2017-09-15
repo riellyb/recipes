@@ -7,7 +7,7 @@
     "test": "test",
     "build": "webpack",
     "start": "nodemon server.js",
-    "dev": "webpack-dev-server --port 9090 --progress --colors --hot --config ./webpack.config.js"
+    "dev": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
