@@ -7,7 +7,7 @@
     "test": "test",
     "build": "webpack",
     "start": "nodemon server.js",
-    "dev": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js"
+    "dev": "webpack-dev-server --port 9090 --progress --colors --hot --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.1"
   },
@@ -54,9 +55,9 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "cors": "^2.8.3",
     "css-loader": "^0.28.4",
     "eslint": "^4.1.1",
