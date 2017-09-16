@@ -15,6 +15,8 @@ export default class App extends React.Component {
 	    	query:'',
 	    	recipes: [],
 	    	filteredData: [],
+	    	userEmail: '',
+	    	userId: '',
 	    };
 	};
 
@@ -52,8 +54,8 @@ export default class App extends React.Component {
 	createRecipe = (params) => {
 		axios.post('http://localhost:3000/recipes', params)
       		.then(res => {
-      			return;
       			getRecipes();
+      			return;
       		});	
 	};
 	//Update recipe data with api, returns a promise
@@ -69,6 +71,29 @@ export default class App extends React.Component {
 		return axios.delete('http://localhost:3000/recipes/' + recipeId);
       		
 	};
+	//signup user and redirect to home
+	userSignup = (email, password) => {
+		let params = {
+			email,
+			password
+		};
+		return axios.post('http://localhost:3000/signup/', params)
+					.then(res => {
+		      			
+		      		});
+      		
+	};
+	//login user and redirect to home
+	userLogin = (email, password) => {
+		let params = {
+			email,
+			password
+		};
+		return axios.post('http://localhost:3000/login/', params)
+					.then(res => {
+		      			
+		      		});
+	};
 	render() {
     	return(
     		<div>
@@ -83,7 +108,9 @@ export default class App extends React.Component {
 						createRecipe={this.createRecipe}
 						updateRecipe={this.updateRecipe}
 						getRecipe={this.getRecipe}
-						deleteRecipe={this.deleteRecipe} />
+						deleteRecipe={this.deleteRecipe}
+						userSignup={this.userSignup}
+						userLogin={this.userLogin} />
 				</div>
 			</div>
 		);

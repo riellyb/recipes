@@ -26,10 +26,12 @@ export default class Main extends React.Component {
 					getRecipe={this.props.getRecipe}
 					deleteRecipe={this.props.deleteRecipe} {...props} />)} />
 				//Create a new Recipe
-		      	<Route path='/new-recipe' render={() => (<NewRecipe 
+		      	<Route path='/new-recipe' render={(props) => (<NewRecipe 
 		      		createRecipe={this.props.createRecipe} />)}/>
-		      	<Route path='/signup' render={() => (<Signup />)}/>
-		      	<Route path='/login' render={() => (<Login />)}/>
+		      	//User signup
+		      	<Route path='/signup' render={(props) => (<Signup userSignup={this.props.userSignup} {...props} />)}/>
+		      	//User login
+		      	<Route path='/login' render={(props) => (<Login userLogin={this.props.userLogin} {...props} />)}/>
 		    </Switch>
 	    );
 	}
